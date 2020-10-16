@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".admin.AdminAddProduct">
+   <ScrollView
+       android:layout_width="wrap_content"
+       android:layout_height="match_parent">
+
+       <LinearLayout
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:layout_marginEnd="30dp"
+           android:layout_gravity="center"
+           android:layout_marginStart="30dp"
+           android:orientation="vertical">
+
+
+           <RelativeLayout
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content">
+               <de.hdodenhof.circleimageview.CircleImageView
+                   android:layout_width="100dp"
+                   android:layout_height="100dp"
+                   android:layout_centerInParent="true"
+                   android:src="@drawable/profile"
+                   android:id="@+id/admin_product_image"/>
+           </RelativeLayout>
+
+
+           <TextView
+               android:layout_width="match_parent"
+               android:layout_height="25dp"
+               android:layout_marginTop="20dp"
+               android:text="@string/product_name"
+               android:textSize="20sp"
+               android:textColor="@color/gey"/>
+           <EditText
+               android:layout_width="match_parent"
+               android:id="@+id/admin_product_name"
+               android:layout_height="50dp"
+               android:background="@drawable/admin_textfield_stroke"/>
+
+
+           <TextView
+               android:layout_width="match_parent"
+               android:layout_marginTop="20dp"
+               android:layout_height="25dp"
+               android:text="@string/product_price"
+               android:textSize="20sp"
+               android:textColor="@color/gey"/>
+           <EditText
+               android:layout_width="match_parent"
+               android:layout_height="50dp"
+               android:id="@+id/admin_product_price"
+               android:background="@drawable/admin_textfield_stroke"/>
+
+
+           <TextView
+               android:layout_width="match_parent"
+               android:layout_height="25dp"
+               android:layout_marginTop="20dp"
+               android:text="@string/category"
+               android:textSize="20sp"
+               android:textColor="@color/gey"/>
+           <RelativeLayout
+               android:layout_width="match_parent"
+               android:layout_height="50dp"
+               android:background="@drawable/admin_textfield_stroke">
+               <Spinner
+                   android:layout_width="match_parent"
+                   android:layout_height="50dp"
+                   android:id="@+id/admin_product_spinner"/>
+
+
+           </RelativeLayout>
+
+           <TextView
+               android:layout_width="match_parent"
+               android:layout_height="22dp"
+               android:text="@string/des"
+               android:layout_marginTop="20dp"
+               android:textSize="20sp"
+               android:textColor="@color/gey"/>
+           <RelativeLayout
+               android:layout_width="match_parent"
+               android:layout_marginTop="5dp"
+               android:layout_height="wrap_content"
+               android:background="@drawable/admin_textfield_stroke">
+
+               <EditText
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:id="@+id/admin_product_description"/>
+
+
+           </RelativeLayout>
+
+           <LinearLayout
+               android:layout_width="match_parent"
+               android:orientation="horizontal"
+               android:id="@+id/checkbox_layout"
+               android:layout_height="wrap_content">
+               <CheckBox
+                   android:layout_width="wrap_content"
+                   android:id="@+id/admin_verify_upload"
+                   android:padding="5dp"
+                   android:layout_marginTop="5dp"
+                   android:layout_height="wrap_content"/>
+               <TextView
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:text="@string/verify_upload"
+                   android:layout_marginTop="5dp"
+                   android:gravity="center"
+                   android:textColor="@color/deepOrange"/>
+           </LinearLayout>
+
+           <Button
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:background="@color/deepOrange"
+               android:text="@string/upload"
+               android:layout_gravity="bottom"
+               android:layout_marginTop="15dp"
+               android:textColor="@color/actionBar"
+               android:textSize="20sp"
+               android:id="@+id/admin_product_upload"/>
+
+       </LinearLayout>
+
+
+
+
+   </ScrollView>
+
+
+
+
+
+
+
+
+
+</RelativeLayout>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:background="@color/actionBar"
+    android:layout_height="match_parent"
+    tools:context=".admin.AdminLogin">
+
+    <LinearLayout
+        android:layout_width="350dp"
+        android:layout_height="350dp"
+        android:background="@color/actionBar"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        >
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/admin_name"
+            android:hint="@string/name"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_marginTop="20dp"
+            android:id="@+id/admin_password"
+            android:layout_height="wrap_content"
+            android:hint="Password"/>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:layout_marginTop="30dp"
+            android:id="@+id/admin_submit"
+            android:background="@color/deepOrange"
+            android:textColor="@color/actionBar"
+            android:text="@string/submit"/>
+
+
+
+
+
+    </LinearLayout>
+
+</RelativeLayout>

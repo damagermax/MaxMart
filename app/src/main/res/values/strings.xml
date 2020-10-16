@@ -1,0 +1,33 @@
+<resources>
+    <string name="app_name">MaxMart</string>
+    <string name="confirm_your_country_code_and_enter_your_phone_number">Confirm your country code and enter your phone number</string>
+    <string name="phone_number">Phone Number</string>
+    <string name="next">Next</string>
+    <string name="verify">Verify</string>
+    <string name="enter">Enter the verification code sent to  </string>
+    <string name="welcome">Welcome</string>
+    <string name="here_we_go">Here we go !</string>
+    <string name="please_provide_your_name_address_and_optional_profile_photo">Please provide your name, nickname, address and optional profile photo</string>
+    <string name="address">Address</string>
+    <string name="finish">Finish</string>
+    <string name="nickname">Nickname</string>
+    <string name="name">Name</string>
+    <string name="signout">Logout</string>
+    <string name="hello_maxwell">Hello,maxwell</string>
+    <string name="submit">Submit</string>
+    <string name="products">Products</string>
+
+    <string name="product_name">Product Name</string>
+    <string name="product_price">Product price</string>
+    <string name="category">Category</string>
+    <string name="upload">UPLOAD</string>
+    <string name="des">Description</string>
+    <string name="verify_upload">Verify Upload</string>
+    <string name="vans_oldskool">Vans OldSkool</string>
+    <string name="_15">15</string>
+    <string name="sneaker">Sneaker</string>
+    <string name="category_products">Category Products</string>
+    <string name="add_product">ADD PRODUCT</string>
+    <string name="fashion">FASHION</string>
+    <string name="games">GAMES</string>
+</resources>

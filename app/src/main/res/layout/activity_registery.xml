@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/actionBar"
+    tools:context=".Registery">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:orientation="vertical">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_width="100dp"
+            android:layout_marginBottom="20dp"
+            android:layout_height="100dp"
+            android:padding="10dp"
+            android:src="@drawable/profile"
+            android:scaleType="centerCrop"
+            android:id="@+id/user_photo"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/here_we_go"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:textSize="30sp"/>
+
+        <TextView
+            android:layout_width="300dp"
+            android:textColor="@color/black"
+            android:layout_height="wrap_content"
+            android:text="@string/please_provide_your_name_address_and_optional_profile_photo"
+            android:textSize="16sp"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:id="@+id/user_name"
+            android:inputType="text"
+            android:layout_marginTop="10dp"
+
+            android:drawablePadding="10dp"
+            android:hint="@string/name"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:id="@+id/user_nickname"
+            android:inputType="text"
+            android:layout_marginTop="10dp"
+            android:drawablePadding="10dp"
+            android:hint="@string/nickname"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/user_address"
+            android:layout_marginTop="10dp"
+            android:drawablePadding="10dp"
+            android:hint="@string/address"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:id="@+id/shopBtn"
+            android:text="@string/finish"
+            android:textSize="20sp"
+            android:textColor="@color/white"
+            android:background="@color/oreng"/>
+
+    </LinearLayout>
+
+</LinearLayout>

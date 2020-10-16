@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".admin.AdminPanel">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:layout_height="wrap_content">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="?actionBarSize"
+                android:background="@color/gey">
+
+
+
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:background="@color/deepOrange">
+
+
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:layout_width="350dp"
+                android:layout_marginTop="50dp"
+                android:layout_height="210dp">
+                <androidx.cardview.widget.CardView
+                    android:layout_width="150dp"
+                    app:cardBackgroundColor="@color/gey"
+                    android:layout_height="200dp"
+                    android:background="@color/actionBar"
+                    android:elevation="20dp"
+                    app:cardCornerRadius="5dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:id="@+id/add_product"
+                        android:text="@string/add_product"
+                        android:textColor="@color/deepOrange"
+                        android:textSize="30sp"
+                         />
+                </androidx.cardview.widget.CardView>
+                <androidx.cardview.widget.CardView
+                    android:layout_width="150dp"
+                    android:layout_alignParentEnd="true"
+                    app:cardBackgroundColor="@color/gey"
+                    android:layout_height="200dp"
+                    app:cardCornerRadius="5dp"
+                    android:background="@color/actionBar"
+                    android:elevation="20dp">
+                   <LinearLayout
+                       android:layout_width="match_parent"
+                       android:orientation="vertical"
+                       android:layout_height="match_parent">
+                       <TextView
+                           android:layout_width="match_parent"
+                           android:layout_height="wrap_content"
+                           android:text="@string/fashion"
+                           android:id="@+id/fashion"
+                           android:layout_weight="1"
+                           android:gravity="center"
+                           android:textColor="@color/deepOrange"
+                           android:textSize="30sp"/>
+                       <TextView
+                           android:layout_width="match_parent"
+                           android:layout_height="wrap_content"
+                           android:text="@string/games"
+                           android:id="@+id/games"
+                           android:layout_weight="1"
+                           android:gravity="center"
+                           android:textColor="@color/deepOrange"
+                           android:textSize="30sp"/>
+
+                   </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+
+
+            </RelativeLayout>
+
+
+
+
+
+        </LinearLayout>
+
+
+    </ScrollView>
+
+
+</LinearLayout>

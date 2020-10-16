@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "284058860315",
+    "firebase_url": "https://maxmart-9413b.firebaseio.com",
+    "project_id": "maxmart-9413b",
+    "storage_bucket": "maxmart-9413b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:284058860315:android:2fe06f1ee072a8c10a31be",
+        "android_client_info": {
+          "package_name": "maxwell.vex.maxmart"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "284058860315-0lbs56r2jpjlpffues6hm22fb6o97bcf.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "maxwell.vex.maxmart",
+            "certificate_hash": "23d3767546ded4b7ec9037f04d0ac199bea8a537"
+          }
+        },
+        {
+          "client_id": "284058860315-4a6va7ilsq31jlnjvr771m8artnlvejv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCG3DETAL48yFufUXvSB_T7MN34qL20po0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "284058860315-4a6va7ilsq31jlnjvr771m8artnlvejv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
