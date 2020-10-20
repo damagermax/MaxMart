@@ -1,47 +1,121 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="@color/actionBar"
+    android:orientation="vertical"
+    android:background="@color/white"
     android:layout_height="match_parent"
     tools:context=".admin.AdminLogin">
-
-    <LinearLayout
-        android:layout_width="350dp"
-        android:layout_height="350dp"
-        android:background="@color/actionBar"
-        android:orientation="vertical"
-        android:gravity="center"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <RelativeLayout
+                android:id="@+id/toolbarRL"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:background="@color/grey"
+                android:orientation="horizontal">
 
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/admin_name"
-            android:hint="@string/name"/>
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_marginTop="20dp"
-            android:id="@+id/admin_password"
-            android:layout_height="wrap_content"
-            android:hint="Password"/>
+                <ImageButton
+                    android:id="@+id/backBtn_login"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@color/grey"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="16dp"
+                    android:padding="5dp"
+                    android:src="@drawable/ic_baseline_arrow_back_24" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="70dp"
+                    android:text="@string/phone_verification"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+            </RelativeLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="50dp"
+                android:layout_marginRight="16dp"
+                android:orientation="vertical">
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/padlock"
+                    android:scaleType="centerInside"
+                    />
+
+                <TextView
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:gravity="center"
+                    android:textColor="@color/black"
+                    android:text="@string/login"
+                    android:textSize="20sp" />
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/admin_name"
+                    android:hint="@string/namelogin"/>
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="20dp"
+                    android:id="@+id/admin_password"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/password"/>
+
+
+
+
+
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+    </ScrollView>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_marginBottom="30dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_height="wrap_content">
+
         <Button
-            android:layout_width="match_parent"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:textSize="20sp"
             android:layout_marginTop="30dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
             android:id="@+id/admin_submit"
-            android:background="@color/deepOrange"
-            android:textColor="@color/actionBar"
+            android:background="@drawable/round_btn_background"
+            android:textColor="@color/white"
             android:text="@string/submit"/>
 
 
+    </RelativeLayout>
 
 
 
-    </LinearLayout>
-
-</RelativeLayout>
+</LinearLayout>

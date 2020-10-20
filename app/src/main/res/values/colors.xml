@@ -1,14 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">#6200EE</color>
-    <color name="colorPrimaryDark">#1E1E1E</color>
+    <color name="colorPrimaryDark">#202020</color>
     <color name="colorAccent">#03DAC5</color>
 
-    <color name="actionBar">#faf8ff</color>
-    <color name="white">#FAFBFB</color>
-    <color name="oreng">#f89e10</color>
+
+    <color name="silver">#D8EDE6E7</color>
+    <color name="white">#F3F3F3</color>
+    <color name="orange">#f89e10</color>
     <color name="deepOrange">#FF8A00</color>
-    <color name="gey">#2E2E2E</color>
+    <color name="grey">#202020</color>
+
+    <color name="GreyDark">#151515</color>
 
     <color name="black">#000000</color>
 </resources>

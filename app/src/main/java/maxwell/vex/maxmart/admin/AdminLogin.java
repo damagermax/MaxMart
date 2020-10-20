@@ -7,8 +7,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
@@ -24,18 +26,28 @@ public class AdminLogin extends AppCompatActivity {
 
 
     private Button submit;
+    private ImageButton backBtn;
     private EditText admin_Name, admin_Password;
-     private String phone, password;
+    private String name, password;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_admin_login);
 
         submit = findViewById(R.id.admin_submit);
         admin_Name = findViewById(R.id.admin_name);
         admin_Password = findViewById(R.id.admin_password);
+        backBtn = findViewById(R.id.backBtn_login);
+
+        backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
 
 
         submit.setOnClickListener(new View.OnClickListener() {
@@ -47,30 +59,35 @@ public class AdminLogin extends AppCompatActivity {
     }
 
     private void validatingField() {
-        phone = admin_Name.getText().toString();
+        name = admin_Name.getText().toString();
         password = admin_Password.getText().toString();
-        if (TextUtils.isEmpty(phone)) {
-            Toast.makeText(getApplicationContext(), "Please enter your phone number", Toast.LENGTH_SHORT).show();
+        if (TextUtils.isEmpty(name)) {
+            Toast.makeText(getApplicationContext(), "Please enter your name", Toast.LENGTH_SHORT).show();
 
-       /// } else if (TextUtils.isEmpty(password)) {
-            ///Toast.makeText(getApplicationContext(), "Please enter your password", Toast.LENGTH_SHORT).show();
-        } else validatingUserNameAndPassword();
+        } else if (TextUtils.isEmpty(password)) {
+            Toast.makeText(getApplicationContext(), "Please enter your password", Toast.LENGTH_SHORT).show();
+        } else validatingUserNameAndPassword(name, password);
 
 
     }
 
-    private void validatingUserNameAndPassword() {
-
-
-        DatabaseReference mRef;
-        mRef = FirebaseDatabase.getInstance().getReference("Admins Profile");
-
-        Query checkAdmins = mRef.orderByChild("phone").equalTo(phone);
-        checkAdmins.addListenerForSingleValueEvent(new ValueEventListener() {
+    private void validatingUserNameAndPassword(final String name, final String password) {
+        final DatabaseReference mRef;
+        mRef = FirebaseDatabase.getInstance().getReference().child("Admins Profile");
+        mRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.exists()){
-                    startActivity( new Intent(getApplicationContext(),AdminPanel.class));
+                for (DataSnapshot ds : snapshot.getChildren()) {
+
+                    String dbName = ds.child("name").getValue(String.class);
+                    String dbPassword = ds.child("password").getValue(String.class);
+
+
+                    if ((dbName.equals(name)) && (dbPassword.equals(password))) {
+
+                        startActivity(new Intent(getApplicationContext(), AdminPanel.class));
+                    }
+
                 }
             }
 
@@ -79,8 +96,6 @@ public class AdminLogin extends AppCompatActivity {
 
             }
         });
-
-
     }
 
 

@@ -3,54 +3,125 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="@color/actionBar"
     android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
     tools:context=".OTP">
 
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
-        android:layout_gravity="center"
-        android:orientation="vertical">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Verification"
-            android:textStyle="bold"
-            android:textColor="@color/black"
-            android:textSize="30dp"/>
-
-        <TextView
-            android:layout_width="300dp"
-            android:textColor="@color/black"
-            android:layout_height="wrap_content"
-            android:id="@+id/phone_output"
-            android:text="@string/enter"
-
-            android:textSize="16sp"/>
-        <com.chaos.view.PinView
-            android:layout_width="wrap_content"
-            android:layout_marginTop="30dp"
-            android:gravity="center"
-            android:inputType="phone"
-            android:id="@+id/pinview"
-            android:layout_gravity="center"
-            app:itemCount="6"
-            android:layout_height="wrap_content"/>
-
-        <Button
+        >
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="150dp"
-            android:text="@string/verify"
-            android:id="@+id/verifyBtn"
-            android:textSize="20dp"
-            android:textColor="@color/white"
-            android:background="@color/oreng"/>
+            android:orientation="vertical">
+            <RelativeLayout
+                android:id="@+id/toolbarRL"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:background="@color/grey"
+                android:orientation="horizontal">
 
-    </LinearLayout>
+                <ImageButton
+                    android:id="@+id/backBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@color/grey"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="16dp"
+                    android:padding="5dp"
+                    android:src="@drawable/ic_baseline_arrow_back_24" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="70dp"
+                    android:text="@string/phone_verification"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+            </RelativeLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="50dp"
+                android:layout_marginRight="16dp"
+                android:orientation="vertical">
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/sms"
+                    android:scaleType="centerInside"
+                    />
+
+                <TextView
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:gravity="center"
+                    android:textColor="@color/black"
+                    android:text="@string/enter_code"
+                    android:textSize="20sp" />
+
+                <com.chaos.view.PinView
+                    android:id="@+id/pinview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="30dp"
+                    android:gravity="center"
+                    android:inputType="phone"
+                    app:itemCount="6" />
+
+                <TextView
+                    android:id="@+id/phone_output"
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp"
+                    android:gravity="center"
+                    android:text="@string/enter"
+                    android:textSize="16sp" />
+
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_marginBottom="30dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_height="wrap_content">
+        <ImageButton
+            android:id="@+id/verifyBtn"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/round_btn_background"
+            android:src="@drawable/ic_baseline_arrow_forward_24"
+            android:textColor="@color/white"
+            android:layout_gravity="bottom"
+
+            android:textSize="20sp" />
+
+
+    </RelativeLayout>
 
 </LinearLayout>

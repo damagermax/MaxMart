@@ -10,20 +10,14 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="?actionBarSize"
-        android:background="@color/gey">
+        android:background="@color/grey">
 
 
 
 
     </RelativeLayout>
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="10dp"
-        android:background="@color/deepOrange">
 
-
-    </RelativeLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/admin_fashion_recyclerview"

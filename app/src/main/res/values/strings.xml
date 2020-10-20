@@ -1,17 +1,16 @@
 <resources>
     <string name="app_name">MaxMart</string>
-    <string name="confirm_your_country_code_and_enter_your_phone_number">Confirm your country code and enter your phone number</string>
+    <string name="confirm_your_country_code_and_enter_your_phone_number">Please confirm your country code and enter your phone number</string>
     <string name="phone_number">Phone Number</string>
     <string name="next">Next</string>
     <string name="verify">Verify</string>
-    <string name="enter">Enter the verification code sent to  </string>
+    <string name="enter">We\'ve sent an SMS with an activation code to your phone </string>
     <string name="welcome">Welcome</string>
     <string name="here_we_go">Here we go !</string>
-    <string name="please_provide_your_name_address_and_optional_profile_photo">Please provide your name, nickname, address and optional profile photo</string>
-    <string name="address">Address</string>
+    <string name="please_provide_your_name_address_and_optional_profile_photo">Enter your name, address and optional profile picture</string>
+    <string name="address">Address (required)</string>
     <string name="finish">Finish</string>
-    <string name="nickname">Nickname</string>
-    <string name="name">Name</string>
+    <string name="name">Name (required)</string>
     <string name="signout">Logout</string>
     <string name="hello_maxwell">Hello,maxwell</string>
     <string name="submit">Submit</string>
@@ -27,7 +26,23 @@
     <string name="_15">15</string>
     <string name="sneaker">Sneaker</string>
     <string name="category_products">Category Products</string>
-    <string name="add_product">ADD PRODUCT</string>
+    <string name="add_product">Add product</string>
     <string name="fashion">FASHION</string>
     <string name="games">GAMES</string>
+    <string name="gamesrf">Games</string>
+    <string name="dfashion">Fashion</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="your_phone">Your Phone</string>
+    <string name="phone_verification">Phone Verification</string>
+    <string name="enter_code">Enter code</string>
+    <string name="call">Call</string>
+    <string name="add_to_cart">Add to cart</string>
+    <string name="your_info">Your info</string>
+    <string name="price_gh">Price (GH₵)</string>
+    <string name="namelogin">"Name "</string>
+    <string name="login">Login</string>
+    <string name="password">Password</string>
+    <string name="update">Update</string>
+    <string name="details">Details</string>
 </resources>

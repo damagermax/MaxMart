@@ -14,6 +14,8 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
@@ -43,10 +45,10 @@ import maxwell.vex.maxmart.R;
 public class AdminAddProduct extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     private EditText addProductName, addProductPrice, addProductDescription;
-    private CircleImageView addProductImage;
+    private ImageView addProductImage;
     private Button uploadBtn;
     private CheckBox checkBox;
-    LinearLayout checkbox_layout;
+    private ImageButton backBtn;
     private String productName, productPrice, productDescription;
     private  String saveCurrentDate,saveCurrentTime, productRandomKey;
 
@@ -79,9 +81,16 @@ public class AdminAddProduct extends AppCompatActivity implements AdapterView.On
         spinner =findViewById(R.id.admin_product_spinner);
         uploadBtn =findViewById(R.id.admin_product_upload);
         checkBox= findViewById(R.id.admin_verify_upload);
-        checkbox_layout=findViewById(R.id.checkbox_layout);
+        backBtn=findViewById(R.id.backBtn_add);
 
-        checkbox_layout.setVisibility(View.INVISIBLE);
+
+        backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+
 
         /// [ Initializing Firebase ] ///
         databaseReference = FirebaseDatabase.getInstance().getReference("Categories");
@@ -146,23 +155,19 @@ public class AdminAddProduct extends AppCompatActivity implements AdapterView.On
             Toast.makeText(getApplicationContext(),"Please select product image",Toast.LENGTH_SHORT).show();
         }
 
-        else if (!checkBox.isChecked()){
 
-            checkbox_layout.setVisibility(View.VISIBLE);
-            Toast.makeText(getApplicationContext(),"Please verify upload",Toast.LENGTH_SHORT).show();
-
-        }
 
         else if (mUpload!=null && mUpload.isInProgress() ){
 
             Toast.makeText(getApplicationContext(),"Upload in progress...",Toast.LENGTH_SHORT).show();
         }
+        else if (!checkBox.isChecked()){
 
-        else if (checkBox.isChecked()){
-             storeProductImage();
+            Toast.makeText(getApplicationContext(),"Please verify upload",Toast.LENGTH_SHORT).show();
+
+        }else storeProductImage();
 
 
-        }
 
     }
     private void storeProductImage() {
@@ -232,10 +237,8 @@ public class AdminAddProduct extends AppCompatActivity implements AdapterView.On
                     .updateChildren(productMap).addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override
                 public void onSuccess(Void aVoid) {
-                    if (checkBox.isChecked()){
+
                         checkBox.setChecked(false);
-                        checkbox_layout.setVisibility(View.INVISIBLE);
-                    }
 
                 }
             });
@@ -248,19 +251,13 @@ public class AdminAddProduct extends AppCompatActivity implements AdapterView.On
                 @Override
                 public void onSuccess(Void aVoid) {
 
-                    if (checkBox.isChecked()){
+
                         checkBox.setChecked(false);
-                        checkbox_layout.setVisibility(View.INVISIBLE);
-                    }
+
                 }
             });
 
         }
-
-
-
-
-
     }
 
 

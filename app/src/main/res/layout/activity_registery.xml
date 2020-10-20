@@ -4,78 +4,140 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/actionBar"
+    android:background="@color/white"
+    android:orientation="vertical"
     tools:context=".Registery">
-    <LinearLayout
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:id="@+id/toolbarRL"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:background="@color/grey"
+                android:orientation="horizontal">
+
+                <ImageButton
+                    android:id="@+id/backBtn_info"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="16dp"
+                    android:background="@color/grey"
+                    android:padding="5dp"
+                    android:src="@drawable/ic_baseline_arrow_back_24" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="70dp"
+                    android:text="@string/your_info"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="50dp"
+                android:layout_marginRight="16dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/please_provide_your_name_address_and_optional_profile_photo"
+
+                    android:textSize="16sp" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="20dp"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/user_photo"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:layout_centerVertical="true"
+                        android:layout_marginBottom="20dp"
+                        android:padding="10dp"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/profile" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_toEndOf="@id/user_photo"
+                        android:orientation="vertical">
+
+                        <EditText
+                            android:id="@+id/user_name"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:drawablePadding="10dp"
+                            android:hint="@string/name"
+                            android:inputType="text" />
+
+
+                        <EditText
+                            android:id="@+id/user_address"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:drawablePadding="10dp"
+                            android:hint="@string/address"
+                            android:inputType="text" />
+
+
+                    </LinearLayout>
+
+
+                </RelativeLayout>
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
-        android:orientation="vertical">
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="30dp">
 
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:layout_width="100dp"
-            android:layout_marginBottom="20dp"
-            android:layout_height="100dp"
-            android:padding="10dp"
-            android:src="@drawable/profile"
-            android:scaleType="centerCrop"
-            android:id="@+id/user_photo"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/here_we_go"
-            android:textStyle="bold"
-            android:textColor="@color/black"
-            android:textSize="30sp"/>
-
-        <TextView
-            android:layout_width="300dp"
-            android:textColor="@color/black"
-            android:layout_height="wrap_content"
-            android:text="@string/please_provide_your_name_address_and_optional_profile_photo"
-            android:textSize="16sp"/>
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-
-            android:id="@+id/user_name"
-            android:inputType="text"
-            android:layout_marginTop="10dp"
-
-            android:drawablePadding="10dp"
-            android:hint="@string/name"/>
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-
-            android:id="@+id/user_nickname"
-            android:inputType="text"
-            android:layout_marginTop="10dp"
-            android:drawablePadding="10dp"
-            android:hint="@string/nickname"/>
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/user_address"
-            android:layout_marginTop="10dp"
-            android:drawablePadding="10dp"
-            android:hint="@string/address"/>
-
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+        <ImageButton
             android:id="@+id/shopBtn"
-            android:text="@string/finish"
-            android:textSize="20sp"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_gravity="bottom"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/round_btn_background"
+            android:src="@drawable/ic_baseline_arrow_forward_24"
             android:textColor="@color/white"
-            android:background="@color/oreng"/>
 
-    </LinearLayout>
+            android:textSize="20sp" />
+    </RelativeLayout>
 
 </LinearLayout>

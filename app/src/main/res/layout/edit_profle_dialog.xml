@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_centerVertical="true"
+    >
+
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:background="@color/white">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="130dp"
+                android:background="@color/GreyDark" />
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/user_pic_edit"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="15dp"
+                android:src="@drawable/profile" />
+
+
+            <EditText
+                android:id="@+id/user_name_edit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/user_pic_edit"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginEnd="16dp"
+                android:drawablePadding="10dp"
+                android:hint="@string/name"
+                android:inputType="text" />
+
+
+            <EditText
+                android:id="@+id/user_address_edit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/user_name_edit"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:drawablePadding="10dp"
+                android:hint="@string/address"
+                android:inputType="text" />
+
+            <Button
+                android:id="@+id/user_update"
+                android:layout_width="150dp"
+                android:layout_height="40dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginTop="30dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="16dp"
+                android:background="@drawable/round_btn_background"
+                android:gravity="center"
+                android:text="@string/update"
+                android:textColor="@color/white"
+                android:textSize="20sp" />
+
+
+        </RelativeLayout>
+
+
+
+
+</androidx.cardview.widget.CardView>

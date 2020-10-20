@@ -4,66 +4,107 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/actionBar"
-
+    android:background="@color/white"
+    android:orientation="vertical"
     tools:context=".MainActivity2">
 
 
-
-
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
-            android:orientation="vertical">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/welcome"
-                android:textStyle="bold"
-                android:textColor="@color/black"
-                android:textSize="30sp"/>
+            android:orientation="vertical"
+            android:layout_height="wrap_content">
 
-            <TextView
-                android:layout_width="300dp"
-                android:textColor="@color/black"
-                android:layout_height="wrap_content"
-                android:text="@string/confirm_your_country_code_and_enter_your_phone_number"
-                android:textSize="16sp"/>
-            <com.hbb20.CountryCodePicker
+            <RelativeLayout
+                android:id="@+id/toolbarRL"
                 android:layout_width="match_parent"
-                android:layout_marginTop="30dp"
-                app:ccp_autoDetectCountry="true"
-                app:ccp_showPhoneCode="true"
-                app:ccp_showFullName="true"
-                android:id="@+id/ccp"
-                app:ccp_showFlag="true"
-                android:layout_height="wrap_content"/>
-           <EditText
-               android:layout_width="match_parent"
-               android:layout_height="wrap_content"
-               android:id="@+id/phone_input"
-               android:inputType="phone"
-               android:layout_marginTop="20dp"
-               android:drawableStart="@drawable/ic_baseline_local_phone_24"
-               android:drawablePadding="10dp"
-               android:hint="@string/phone_number"/>
+                android:layout_height="55dp"
+                android:background="@color/grey"
+                android:orientation="horizontal">
 
-            <Button
+
+                <TextView
+                    android:id="@+id/home_user_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="16dp"
+                    android:gravity="center_vertical"
+                    android:text="@string/your_phone"
+                    android:textColor="@color/white"
+                    android:textSize="20sp" />
+
+            </RelativeLayout>
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:id="@+id/nextBtn"
-                android:text="@string/next"
-                android:textSize="20sp"
-                android:textColor="@color/white"
-                android:background="@color/oreng"/>
+                android:layout_gravity="center"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="50dp"
+                android:layout_marginRight="16dp"
+                android:orientation="vertical">
 
+
+                <com.hbb20.CountryCodePicker
+                    android:id="@+id/ccp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:ccp_autoDetectCountry="true"
+                    app:ccp_showFlag="false"
+                    app:ccp_showFullName="true"
+                    app:ccp_showPhoneCode="true" />
+
+                <EditText
+                    android:id="@+id/phone_input"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:hint="@string/phone_number"
+                    android:inputType="phone"
+                    android:textColor="@color/grey" />
+
+                <TextView
+                    android:layout_width="match_parent"
+
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp"
+                    android:gravity="center"
+                    android:text="@string/confirm_your_country_code_and_enter_your_phone_number"
+                    android:textSize="16sp" />
+
+
+
+            </LinearLayout>
         </LinearLayout>
 
 
+
+    </ScrollView>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_marginBottom="30dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_height="wrap_content">
+        <ImageButton
+            android:id="@+id/nextBtn"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/round_btn_background"
+            android:src="@drawable/ic_baseline_arrow_forward_24"
+            android:textColor="@color/white"
+            android:layout_gravity="bottom"
+
+            android:textSize="20sp" />
+    </RelativeLayout>
 
 
 </LinearLayout>
