@@ -16,10 +16,13 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -67,10 +70,11 @@ public class Home extends AppCompatActivity implements View.OnClickListener {
     private CircleImageView mUserPic;
     private EditText mUserName, mUserAddress;
     private Button mUpdateBtn;
-    private  AlertDialog dialog;
-    private String name, address,downloadImageUrl;
-    private  StorageReference  storageReference;
+    private AlertDialog dialog;
+    private String name, address, downloadImageUrl;
+    private StorageReference storageReference;
     private DatabaseReference databaseReference;
+    private ImageView logout, cartBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,10 +87,34 @@ public class Home extends AppCompatActivity implements View.OnClickListener {
         userPic = findViewById(R.id.home_profile);
         gamesTv = findViewById(R.id.gamesTv);
         fashionTv = findViewById(R.id.fashionTv);
+        cartBtn = findViewById(R.id.cartIv);
+        logout = findViewById(R.id.searchIv);
+
+        logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FirebaseAuth user = FirebaseAuth.getInstance();
+                user.signOut();
+                startActivity(new Intent(getApplicationContext(), MainActivity2.class));
+                finish();
+                isDestroyed();
+                return;
+            }
+        });
 
 
+        /// opening cart activity
+        cartBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) { startActivity(new Intent(getApplicationContext(),UserCart.class));
+            }
+        });
+
+        /// opening fragments
         gamesTv.setOnClickListener(this);
         fashionTv.setOnClickListener(this);
+
+        /// opening edit profile dialog
         userPic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -95,8 +123,13 @@ public class Home extends AppCompatActivity implements View.OnClickListener {
         });
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new UserGamesFragment()).commit();
 
+        /// getting current user's phone number
         gettingCurrentUser();
+
+        /// displaying current user's profile picture on actionbar
         displayCurrentUserInfo();
+
+        /// opening admin panel
         openAdminPortal();
     }
 
@@ -129,54 +162,54 @@ public class Home extends AppCompatActivity implements View.OnClickListener {
 
                 } else if (TextUtils.isEmpty(address)) {
                     Toast.makeText(getApplicationContext(), "Please enter your address", Toast.LENGTH_SHORT).show();
-                }
-                else storeUserProfilePic();
+                } else storeUserProfilePic();
             }
         });
 
 
         mBuilder.setView(view);
-         dialog = mBuilder.create();
+        dialog = mBuilder.create();
         dialog.show();
     }
 
     private void displayCurrentUserInfoOnDialog() {
-       DatabaseReference editRef = FirebaseDatabase.getInstance().getReference("User Profile").child(currentUser);
-       editRef.addValueEventListener(new ValueEventListener() {
-           @Override
-           public void onDataChange(@NonNull DataSnapshot snapshot) {
-               String user_pic, user_name, user_address;
+        DatabaseReference editRef = FirebaseDatabase.getInstance().getReference("User Profile").child(currentUser);
+        editRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                String user_pic, user_name, user_address;
 
-               if ((snapshot.hasChild("image")) && (snapshot.hasChild("name")) && (snapshot.hasChild("address"))) {
+                if ((snapshot.hasChild("image")) && (snapshot.hasChild("name")) && (snapshot.hasChild("address"))) {
 
-                   user_pic = snapshot.child("image").getValue().toString();
-                   user_name = snapshot.child("name").getValue().toString();
-                   user_address = snapshot.child("address").getValue().toString();
+                    user_pic = snapshot.child("image").getValue().toString();
+                    user_name = snapshot.child("name").getValue().toString();
+                    user_address = snapshot.child("address").getValue().toString();
 
-                   mUserName.setText(user_name);
-                   mUserAddress.setText(user_address);
-                   Picasso.with(getApplicationContext()).load(user_pic).
-                           placeholder(R.drawable.profile).fit().centerCrop()
-                           .into(mUserPic);
+                    mUserName.setText(user_name);
+                    mUserAddress.setText(user_address);
+                    Picasso.with(getApplicationContext()).load(user_pic).
+                            placeholder(R.drawable.profile).fit().centerCrop()
+                            .into(mUserPic);
 
-               } else {
-                   user_name = snapshot.child("name").getValue().toString();
-                   user_address = snapshot.child("address").getValue().toString();
+                } else {
+                    user_name = snapshot.child("name").getValue().toString();
+                    user_address = snapshot.child("address").getValue().toString();
 
-                   mUserName.setText(user_name);
-                   mUserAddress.setText(user_address);
-               }
+                    mUserName.setText(user_name);
+                    mUserAddress.setText(user_address);
+                }
 
-           }
+            }
 
-           @Override
-           public void onCancelled(@NonNull DatabaseError error) {
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
 
-           }
-       });
+            }
+        });
     }
+
     private void storeUserProfilePic() {
-       storageReference = FirebaseStorage.getInstance().getReference();
+        storageReference = FirebaseStorage.getInstance().getReference();
         databaseReference = FirebaseDatabase.getInstance().getReference();
         if (imageUri != null) {
             final StorageReference filepath = storageReference.
@@ -211,6 +244,7 @@ public class Home extends AppCompatActivity implements View.OnClickListener {
 
         } else saveInfoWithoutPic();
     }
+
     private void saveInfoWithPic() {
         DatabaseReference info = databaseReference.child("User Profile");
         HashMap<String, Object> user = new HashMap<>();
@@ -221,7 +255,7 @@ public class Home extends AppCompatActivity implements View.OnClickListener {
         info.child(currentUser).updateChildren(user).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
-                Toast.makeText(getApplicationContext(),"Profile updated successfully",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Profile updated successfully", Toast.LENGTH_SHORT).show();
                 dialog.dismiss();
 
             }
@@ -229,6 +263,7 @@ public class Home extends AppCompatActivity implements View.OnClickListener {
 
 
     }
+
     private void saveInfoWithoutPic() {
         DatabaseReference info = databaseReference.child("User Profile");
 
@@ -239,18 +274,16 @@ public class Home extends AppCompatActivity implements View.OnClickListener {
         info.child(currentUser).updateChildren(user).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
-                Toast.makeText(getApplicationContext(),"Profile updated successfully",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Profile updated successfully", Toast.LENGTH_SHORT).show();
                 dialog.dismiss();
 
             }
         });
 
 
-
     }
+
     /// [Storing user data - END  ]///
-
-
     private void openGallery() {
         Intent intent = new Intent();
         intent.setType("image/*");
@@ -258,6 +291,7 @@ public class Home extends AppCompatActivity implements View.OnClickListener {
         startActivityForResult(intent, PICK_IMAGE_REQUEST);
 
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -351,5 +385,14 @@ public class Home extends AppCompatActivity implements View.OnClickListener {
         gamesTv.setBackgroundResource(R.drawable.tadbtn);
         gamesTv.setTextColor(getResources().getColor(R.color.GreyDark));
 
+    }
+
+    /// [ Menu ] ///
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu, menu);
+
+        return super.onCreateOptionsMenu(menu);
     }
 }

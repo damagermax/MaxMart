@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     android:orientation="vertical"
-    tools:context=".Registery">
+    tools:context="maxwell.vex.maxmart.Registery">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -21,7 +21,7 @@
                 android:id="@+id/toolbarRL"
                 android:layout_width="match_parent"
                 android:layout_height="55dp"
-                android:background="@color/grey"
+                android:background="@color/GreyDark"
                 android:orientation="horizontal">
 
                 <ImageButton
@@ -30,7 +30,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginStart="16dp"
-                    android:background="@color/grey"
+                    android:background="@color/GreyDark"
                     android:padding="5dp"
                     android:src="@drawable/ic_baseline_arrow_back_24" />
 

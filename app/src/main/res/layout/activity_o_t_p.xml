@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     android:orientation="vertical"
-    tools:context=".OTP">
+    tools:context="maxwell.vex.maxmart.OTP">
 
 
     <ScrollView
@@ -21,14 +21,14 @@
                 android:id="@+id/toolbarRL"
                 android:layout_width="match_parent"
                 android:layout_height="55dp"
-                android:background="@color/grey"
+                android:background="@color/GreyDark"
                 android:orientation="horizontal">
 
                 <ImageButton
                     android:id="@+id/backBtn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@color/grey"
+                    android:background="@color/GreyDark"
                     android:layout_centerVertical="true"
                     android:layout_marginStart="16dp"
                     android:padding="5dp"

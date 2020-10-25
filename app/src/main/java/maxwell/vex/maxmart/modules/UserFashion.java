@@ -5,16 +5,18 @@ public class UserFashion {
     private  String price;
     private  String image;
     private  String productID;
+    private  String category;
 
     public UserFashion() {
 
     }
 
-    public UserFashion(String name, String price, String image, String productID) {
+    public UserFashion(String name, String price, String image, String productID, String category) {
         this.name = name;
         this.price = price;
         this.image = image;
         this.productID = productID;
+        this.category = category;
     }
 
     public String getName() {
@@ -47,5 +49,13 @@ public class UserFashion {
 
     public void setProductID(String productID) {
         this.productID = productID;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
 }

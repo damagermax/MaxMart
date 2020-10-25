@@ -1,11 +1,13 @@
 package maxwell.vex.maxmart.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -14,6 +16,7 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
+import maxwell.vex.maxmart.ProductDetail;
 import maxwell.vex.maxmart.R;
 import maxwell.vex.maxmart.modules.UserFashion;
 
@@ -42,12 +45,26 @@ public class UserFashionAdapter extends RecyclerView.Adapter<UserFashionAdapter.
         String image=userFashion.getImage();
         String name=userFashion.getName();
         String price =userFashion.getPrice();
-        String productID=userFashion.getProductID();
+        final String productID=userFashion.getProductID();
+        final String category = userFashion.getCategory();
         String priceI="GH₵ "+price;
 
         holder.fashionPrice.setText(priceI);
         holder.fashionName.setText(name);
         Picasso.with(fCtx).load(image).fit().centerCrop().into(holder.fashionImage);
+
+
+       holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(fCtx, ProductDetail.class);
+                intent.putExtra("category", category);
+                intent.putExtra("fashionID",productID);
+               fCtx.startActivity(intent);
+
+
+            }
+        });
 
     }
 

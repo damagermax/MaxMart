@@ -4,10 +4,43 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context=".ProductDetail">
+    <RelativeLayout
+        android:id="@+id/toolbarRL"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:background="@color/grey"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/backBtn_pd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="16dp"
+            android:background="@color/grey"
+            android:padding="5dp"
+            android:scaleType="center"
+            android:src="@drawable/ic_baseline_arrow_back_24" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="70dp"
+            android:text="@string/details"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+    </RelativeLayout>
 
     <ScrollView
         android:layout_width="match_parent"
+        android:layout_below="@id/toolbarRL"
+        android:layout_marginBottom="20dp"
+        android:scrollbars="none"
         android:layout_height="wrap_content">
 
         <LinearLayout
@@ -15,92 +48,52 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <RelativeLayout
-                android:id="@+id/toolbarRL"
-                android:layout_width="match_parent"
-                android:layout_height="55dp"
-                android:background="@color/grey"
-                android:orientation="horizontal">
 
-                <ImageButton
-                    android:id="@+id/backBtn_pd"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginStart="16dp"
-                    android:background="@color/grey"
-                    android:padding="5dp"
-                    android:scaleType="center"
-                    android:src="@drawable/ic_baseline_arrow_back_24" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginStart="70dp"
-                    android:text="@string/details"
-                    android:textColor="@color/white"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
-
-            </RelativeLayout>
 
             <ImageView
                 android:id="@+id/detail_imageTv"
                 android:layout_width="match_parent"
-                android:layout_height="300dp" />
+                android:layout_marginTop="20dp"
+                android:layout_height="300dp"
+                android:layout_gravity="center"
+                android:padding="5dp" />
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="10dp"
-                android:background="@color/silver" />
 
             <TextView
                 android:id="@+id/detail_name"
-                android:layout_width="250dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="10dp"
+                android:layout_gravity="center"
                 android:layout_marginEnd="16dp"
-                android:fontFamily="@font/poppins_semibold"
                 android:gravity="center_vertical"
                 android:text="@string/vans_oldskool"
-                android:textColor="@color/grey"
-                android:textSize="20sp"
-                android:textStyle="bold" />
+                android:textSize="30sp" />
 
             <TextView
                 android:id="@+id/detail_price"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
+                android:textStyle="bold"
+
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
-                android:gravity="center_vertical"
+                android:gravity="center"
                 android:text="@string/vans_oldskool"
                 android:textColor="@color/grey"
                 android:textSize="17sp" />
 
             <TextView
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_gravity="center"
-                android:background="@color/silver"
-                android:gravity="center_vertical"
-                android:paddingStart="16dp"
-
-                android:text="@string/des"
-                android:textColor="@color/grey"
-
-                />
-            <TextView
                 android:id="@+id/detail_desc"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center_vertical"
+                android:gravity="center"
+                android:layout_marginBottom="20dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
+                android:layout_marginTop="10dp"
                 android:text="@string/vans_oldskool"
-                android:textColor="@color/grey"
                 android:textSize="17sp" />
 
         </LinearLayout>
@@ -109,15 +102,18 @@
     <RelativeLayout
         android:id="@+id/tabRL"
         android:layout_width="match_parent"
+        android:layout_marginTop="10dp"
         android:layout_height="60dp"
         android:layout_alignParentBottom="true"
         android:background="@color/grey">
+
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_centerVertical="true"
             android:layout_marginStart="16dp"
+
             android:layout_marginEnd="16dp"
             android:background="@drawable/tablayout"
             android:gravity="center_vertical"
@@ -128,7 +124,7 @@
                 android:id="@+id/call"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
+                android:layout_weight="2"
                 android:gravity="center"
                 android:text="@string/call"
                 android:textColor="@color/white" />

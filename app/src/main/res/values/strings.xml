@@ -45,4 +45,7 @@
     <string name="password">Password</string>
     <string name="update">Update</string>
     <string name="details">Details</string>
+    <string name="cart_list">Cart list</string>
+    <string name="cart">Cart</string>
+    <string name="total">TOTAL</string>
 </resources>

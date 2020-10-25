@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -47,6 +48,7 @@ public class UserGamesAdapter extends RecyclerView.Adapter<UserGamesAdapter.User
         String name = userGames.getName();
         String price = userGames.getPrice();
         final String productID = userGames.getProductID();
+        final String category = userGames.getCategory();
         String priceI = "GH₵ " + price;
 
         holder.gamePrice.setText(priceI);
@@ -57,9 +59,11 @@ public class UserGamesAdapter extends RecyclerView.Adapter<UserGamesAdapter.User
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(gCtx, ProductDetail.class);
-                intent.putExtra("ID",productID);
+                Intent intent = new Intent(gCtx, ProductDetail.class);
+                intent.putExtra("category", category);
+                intent.putExtra("gamesID", productID);
                 gCtx.startActivity(intent);
+
 
             }
         });

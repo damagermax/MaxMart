@@ -79,8 +79,8 @@ public class AdminLogin extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot ds : snapshot.getChildren()) {
 
-                    String dbName = ds.child("name").getValue(String.class);
-                    String dbPassword = ds.child("password").getValue(String.class);
+                    String dbName = ds.child("name").getValue().toString();
+                    String dbPassword = ds.child("password").getValue().toString();
 
 
                     if ((dbName.equals(name)) && (dbPassword.equals(password))) {

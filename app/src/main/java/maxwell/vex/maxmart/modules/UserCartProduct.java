@@ -1,29 +1,19 @@
 package maxwell.vex.maxmart.modules;
 
-public class UserGames {
-    private String image;
+public class UserCartProduct {
     private String price;
+    private String image;
     private String name;
-    private  String productID;
-    private  String category;
+    private String productID;
 
-    public UserGames() {
+    public UserCartProduct() {
     }
 
-    public UserGames(String image, String price, String name, String productID, String category) {
-        this.image = image;
+    public UserCartProduct(String price, String image, String name, String productID) {
         this.price = price;
+        this.image = image;
         this.name = name;
         this.productID = productID;
-        this.category = category;
-    }
-
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
     }
 
     public String getPrice() {
@@ -32,6 +22,14 @@ public class UserGames {
 
     public void setPrice(String price) {
         this.price = price;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 
     public String getName() {
@@ -48,13 +46,5 @@ public class UserGames {
 
     public void setProductID(String productID) {
         this.productID = productID;
-    }
-
-    public String getCategory() {
-        return category;
-    }
-
-    public void setCategory(String category) {
-        this.category = category;
     }
 }

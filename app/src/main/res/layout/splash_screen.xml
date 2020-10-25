@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:background="@color/grey"
     android:layout_height="match_parent"
-    tools:context=".SplashScreen">
+    tools:context="maxwell.vex.maxmart.SplashScreen">
 
    <TextView
        android:layout_width="match_parent"
