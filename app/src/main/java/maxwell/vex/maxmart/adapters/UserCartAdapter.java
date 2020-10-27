@@ -22,19 +22,21 @@ import com.squareup.picasso.Picasso;
 import java.util.List;
 
 import maxwell.vex.maxmart.R;
+import maxwell.vex.maxmart.RecyclerViewItemClick;
 import maxwell.vex.maxmart.modules.UserCartProduct;
 
 public class UserCartAdapter extends RecyclerView.Adapter<UserCartAdapter.UserCartViewHolder> {
 
     private List<UserCartProduct> userCartProductList;
     private Context cCtx;
+    private RecyclerViewItemClick recyclerViewItemClick;
     private String currentUser;
 
-    public UserCartAdapter(List<UserCartProduct> userCartProductList, Context cCtx) {
+    public UserCartAdapter(List<UserCartProduct> userCartProductList, Context cCtx, RecyclerViewItemClick recyclerViewItemClick) {
         this.userCartProductList = userCartProductList;
         this.cCtx = cCtx;
+        this.recyclerViewItemClick = recyclerViewItemClick;
     }
-
 
     @NonNull
     @Override
@@ -59,7 +61,7 @@ public class UserCartAdapter extends RecyclerView.Adapter<UserCartAdapter.UserCa
         Picasso.with(cCtx).load(productImage)
                 .fit().centerInside().into(holder.cartImage);
 
-        holder.cartDeleteBtn.setOnClickListener(new View.OnClickListener() {
+       /* holder.cartDeleteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -80,25 +82,25 @@ public class UserCartAdapter extends RecyclerView.Adapter<UserCartAdapter.UserCa
 
 
             }
-        });
+        });*/
 
 
     }
      /// getting currentUser
-    private void gettingCurrentUser() {
+    /*private void gettingCurrentUser() {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user!=null){
             currentUser=user.getPhoneNumber();
 
         }
-    }
+    }*/
 
     @Override
     public int getItemCount() {
         return userCartProductList.size();
     }
 
-    public static class UserCartViewHolder extends RecyclerView.ViewHolder{
+    class UserCartViewHolder extends RecyclerView.ViewHolder{
 
         private ImageView cartImage, cartDeleteBtn;
         private TextView cartName;
@@ -112,6 +114,14 @@ public class UserCartAdapter extends RecyclerView.Adapter<UserCartAdapter.UserCa
             cartPrice=itemView.findViewById(R.id.cart_price);
             cartName=itemView.findViewById(R.id.cart_name);
             cartDeleteBtn=itemView.findViewById(R.id.cart_delete);
+
+            cartDeleteBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    recyclerViewItemClick.deleteCartItem(getAdapterPosition());
+                }
+            });
 
         }
     }

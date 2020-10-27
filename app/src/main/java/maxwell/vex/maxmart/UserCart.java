@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
@@ -15,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -29,7 +31,7 @@ import java.util.List;
 import maxwell.vex.maxmart.adapters.UserCartAdapter;
 import maxwell.vex.maxmart.modules.UserCartProduct;
 
-public class UserCart extends AppCompatActivity {
+public class UserCart extends AppCompatActivity implements RecyclerViewItemClick {
 
     private List<UserCartProduct> cartList;
     private UserCartAdapter cartAdapter;
@@ -42,7 +44,8 @@ public class UserCart extends AppCompatActivity {
 
 
     private TextView totalPriceIV;
-    private int totalPrice=0;
+    private int totalPrice = 0;
+    private int priceOfOneProduct;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,15 +53,11 @@ public class UserCart extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_user_cart);
 
-        cartRecycler=findViewById(R.id.cart_recycler);
-        backBtn=findViewById(R.id.backBtn_cart);
-        checkoutBtn=findViewById(R.id.cart_checkOutBtn);
-        totalPriceIV=findViewById(R.id.cart_totalPrice);
-
-
-
-
-
+        /// Hooking views
+        cartRecycler = findViewById(R.id.cart_recycler);
+        backBtn = findViewById(R.id.backBtn_cart);
+        checkoutBtn = findViewById(R.id.cart_checkOutBtn);
+        totalPriceIV = findViewById(R.id.cart_totalPrice);
 
 
         /// onBackPressed
@@ -69,56 +68,65 @@ public class UserCart extends AppCompatActivity {
             }
         });
 
-        /// getting current user's phone number
+        /// getting current user's phone number function call
         gettingCurrentUser();
 
-        /// displaying cart items
+        /// displaying cart item function call
         displayingCartItems();
+
     }
 
+    /// getting current user's phone number function
     private void gettingCurrentUser() {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
-            currentUser=user.getPhoneNumber();
+            currentUser = user.getPhoneNumber();
 
         }
     }
 
+    /// displaying cart item function
     private void displayingCartItems() {
-        cartList=new ArrayList<>();
 
+        /// initializing array
+        cartList = new ArrayList<>();
+
+        /// setting up recyclerView
         cartRecycler.setHasFixedSize(true);
         cartRecycler.setLayoutManager(new LinearLayoutManager(this));
 
-        cartAdapter=new UserCartAdapter(cartList,getApplication());
+        /// initializing adapter
+        cartAdapter = new UserCartAdapter(cartList, getApplication(), this);
+
+        /// setting adapter to recyclerView
         cartRecycler.setAdapter(cartAdapter);
 
 
-        cartRef= FirebaseDatabase.getInstance().getReference();
+        /// initializing firebase
+        cartRef = FirebaseDatabase.getInstance().getReference();
         cartRef.child("Cart list").child("User View").child(currentUser).child("Products").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 cartList.clear();
-                for (DataSnapshot cartDb:snapshot.getChildren()){
-                    UserCartProduct userCartProduct=cartDb.getValue(UserCartProduct.class);
+
+                /// looping through the database
+                for (DataSnapshot cartDb : snapshot.getChildren()) {
+
+                    /// getting the database value to userCartProduct model
+                    UserCartProduct userCartProduct = cartDb.getValue(UserCartProduct.class);
                     if (userCartProduct != null) {
-                        int priceOfOneProduct =(Integer.parseInt(userCartProduct.getPrice()));
 
-                        totalPrice=totalPrice+priceOfOneProduct;
-                        String mPrice=(String.valueOf(totalPrice));
-                        totalPriceIV.setText("GH₵ "+mPrice);
+                        /// getting product price to calculate the total price
+                        priceOfOneProduct = (Integer.parseInt(userCartProduct.getPrice()));
 
+                        /// summing up the price of products in cart list
+                        totalPrice = totalPrice + priceOfOneProduct;
+                        String price = String.valueOf(totalPrice);
+                        totalPriceIV.setText(price);
                     }
-
                     cartList.add(userCartProduct);
-
-
-
-
                 }
-
                 cartAdapter.notifyDataSetChanged();
-
             }
 
             @Override
@@ -128,4 +136,33 @@ public class UserCart extends AppCompatActivity {
         });
 
     }
+
+
+    /// delete interface
+    @Override
+    public void deleteCartItem(int position) {
+
+        /// resetting total price  when an item is removed from cart
+        totalPrice = 0;
+
+        /// getting the position of the item removed
+        final UserCartProduct userCartProduct = cartList.get(position);
+        /// getting the ID of the item clicked
+        final String productID = userCartProduct.getProductID();
+
+        /// deleting item from cart
+        final DatabaseReference cartRef = FirebaseDatabase.getInstance().getReference();
+        cartRef.child("Cart list").child("User View").child(currentUser).child("Products").
+                child(productID).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                cartRef.child("Cart list").child("Admin View").child(currentUser).child("Products").child(productID).removeValue();
+
+            }
+        });
+
+
+    }
+
+
 }
