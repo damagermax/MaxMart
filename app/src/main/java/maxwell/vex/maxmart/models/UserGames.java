@@ -1,30 +1,29 @@
-package maxwell.vex.maxmart.modules;
+package maxwell.vex.maxmart.models;
 
-public class UserFashion {
-    private  String name;
-    private  String price;
-    private  String image;
+public class UserGames {
+    private String image;
+    private String price;
+    private String name;
     private  String productID;
     private  String category;
 
-    public UserFashion() {
-
+    public UserGames() {
     }
 
-    public UserFashion(String name, String price, String image, String productID, String category) {
-        this.name = name;
-        this.price = price;
+    public UserGames(String image, String price, String name, String productID, String category) {
         this.image = image;
+        this.price = price;
+        this.name = name;
         this.productID = productID;
         this.category = category;
     }
 
-    public String getName() {
-        return name;
+    public String getImage() {
+        return image;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setImage(String image) {
+        this.image = image;
     }
 
     public String getPrice() {
@@ -35,12 +34,12 @@ public class UserFashion {
         this.price = price;
     }
 
-    public String getImage() {
-        return image;
+    public String getName() {
+        return name;
     }
 
-    public void setImage(String image) {
-        this.image = image;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getProductID() {

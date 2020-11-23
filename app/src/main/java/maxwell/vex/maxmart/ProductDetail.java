@@ -10,6 +10,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,23 +28,24 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashMap;
 
-public class ProductDetail extends AppCompatActivity {
+import es.dmoral.toasty.Toasty;
+
+public class ProductDetail extends AppCompatActivity implements View.OnClickListener {
 
     private ImageButton backBtn;
     private ImageView detailImage;
     private TextView detailName, detailPrice, detailDesc;
-    private String gamesID, fashionID;
-    private String games, fashion;
+    private String categoryID, productID;
     private TextView call, addToCart;
     private String currentUser;
     private String productName, productPrice, productImage, productDesc;
-    private DatabaseReference addToCartRef;
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+      //  getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_product_detail);
 
         backBtn = findViewById(R.id.backBtn_pd);
@@ -62,39 +64,27 @@ public class ProductDetail extends AppCompatActivity {
             }
         });
 
+        // Getting  intent
         Intent intent = getIntent();
-        // Getting games intent
-        gamesID = intent.getStringExtra("gamesID");
-        games = intent.getStringExtra("category");
+        productID = intent.getStringExtra("productID");
+        categoryID = intent.getStringExtra("categoryID");
 
-        // Getting fashion intent
-        fashionID = intent.getStringExtra("fashionID");
-        fashion = intent.getStringExtra("category");
+        /// add to cart click
+        addToCart.setOnClickListener(this);
 
-        addToCart.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                addProductToCart();
-            }
-        });
+        /// Checking if data passed is not null before getting data from database
+        if ((categoryID != null) && (productID != null)) {
 
-
-        /// Checking if data passed is not null
-        if ((games != null) && (games.equals("Video Games"))) {
-            getGames();
-
-        } else {
-
-            if ((fashion != null) && (fashion.equals("Fashion"))) {
-                getFashion();
-
-            }
+            /// get product details
+            getProductDetails();
 
         }
 
+        /// get current user
         gettingCurrentUser();
 
     }
+
     /// getting current user with phone number
     private void gettingCurrentUser() {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -103,75 +93,25 @@ public class ProductDetail extends AppCompatActivity {
 
         }
     }
-    /// adding products to cart
-    private void addProductToCart() {
+    //////////////////////////////////////////
 
-        addToCartRef = FirebaseDatabase.getInstance().getReference();
-
-        if (fashionID != null) {
-            addFashionProductsToCart();
-
-        } else if (gamesID!=null){
-            addGamesProductsToCart();
-
-        }
-
-
-    }
-    /// adding games product to cart
-    private void addGamesProductsToCart() {
-        final HashMap<String, Object> cartMap = new HashMap<>();
-        cartMap.put("name", productName);
-        cartMap.put("price", productPrice);
-        cartMap.put("image", productImage);
-        cartMap.put("productID", gamesID);
-
-        addToCartRef.child("Cart list").child("User View").child(currentUser).child("Products")
-                .child(gamesID).updateChildren(cartMap)
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        addToCartRef.child("Cart list").child("Admin View").child(currentUser).child("Products")
-                                .child(gamesID).updateChildren(cartMap);
-                        Toast.makeText(getApplicationContext(),productName+" added to cart",Toast.LENGTH_SHORT).show();
-
-                    }
-                });
-    }
-    /// adding fashion product to cart
-    private void addFashionProductsToCart() {
-        final HashMap<String, Object> cartMap = new HashMap<>();
-        cartMap.put("name", productName);
-        cartMap.put("price", productPrice);
-        cartMap.put("image", productImage);
-        cartMap.put("productID", fashionID);
-
-        addToCartRef.child("Cart list").child("User View").child(currentUser).child("Products")
-                .child(fashionID).updateChildren(cartMap)
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        addToCartRef.child("Cart list").child("Admin View").child(currentUser).child("Products")
-                                .child(fashionID).updateChildren(cartMap);
-                        Toast.makeText(getApplicationContext(),productName+" added to cart",Toast.LENGTH_SHORT).show();
-
-                    }
-                });
-    }
-
-    /// getting fashion products to display
-    private void getFashion() {
-        DatabaseReference fashionRef = FirebaseDatabase.getInstance().getReference().child("Categories").child(fashion).child(fashionID);
+    /// getting  product details to display
+    private void getProductDetails() {
+        DatabaseReference fashionRef = FirebaseDatabase.getInstance().getReference().child("Categories").child(categoryID).child(productID);
         fashionRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                /// check if database is not empty
                 if (snapshot.exists()) {
+                    /// if database is not empty get data
+
                     productName = snapshot.child("name").getValue(String.class);
-                    productPrice =  snapshot.child("price").getValue(String.class);
+                    productPrice = snapshot.child("price").getValue(String.class);
                     productImage = snapshot.child("image").getValue(String.class);
                     productDesc = snapshot.child("description").getValue(String.class);
 
-
+                    ///set data to views
                     detailDesc.setText(productDesc);
                     detailName.setText(productName);
                     detailPrice.setText("GH₵ " + productPrice);
@@ -180,45 +120,59 @@ public class ProductDetail extends AppCompatActivity {
 
                 }
 
-
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
+                Toasty.error(getApplicationContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
 
             }
         });
     }
+    ///////////////////////////////////////
 
-    /// getting games products to display
-    private void getGames() {
-        DatabaseReference gamesRef = FirebaseDatabase.getInstance().getReference().child("Categories").child(games).child(gamesID);
-        gamesRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.exists()) {
-                    productName = snapshot.child("name").getValue(String.class);
-                    productPrice =  snapshot.child("price").getValue(String.class);
-                    productImage = snapshot.child("image").getValue(String.class);
-                    productDesc = snapshot.child("description").getValue(String.class);
+    /// adding product to cart
+    private void addProductsToCart() {
 
 
-                    detailDesc.setText(productDesc);
-                    detailName.setText(productName);
-                    detailPrice.setText( "GH₵ " +productPrice);
-                    Picasso.with(getApplicationContext()).load(productImage).fit().centerInside()
-                            .into(detailImage);
+        /// check if productId is not empty
+        if (productID != null) {
+            /// if productID is no empty
 
-                }
+            final HashMap<String, Object> cartMap = new HashMap<>();
+            cartMap.put("name", productName);
+            cartMap.put("price", productPrice);
+            cartMap.put("image", productImage);
+            cartMap.put("quantity", 1);
+            cartMap.put("productID", productID);
+
+            /// initialize firebaseDatabase
+            DatabaseReference addToCartRef=FirebaseDatabase.getInstance().getReference();
+
+            addToCartRef.child("Cart list").child(currentUser).child("Products")
+                    .child(productID).updateChildren(cartMap)
+                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+
+                            Toasty.success(getApplicationContext(), productName + " added to cart", Toast.LENGTH_SHORT).show();
+
+                        }
+                    });
+        }
+    }
+    ///////////////////////////////////////
 
 
-            }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
+    @Override
+    public void onClick(View v) {
 
-            }
-        });
+        /// get ids and compare
+        if (v.getId() == R.id.add_to_cart) {
+            /// add product to cart
+            addProductsToCart();
+        }
     }
 
 

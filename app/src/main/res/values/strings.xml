@@ -48,4 +48,9 @@
     <string name="cart_list">Cart list</string>
     <string name="cart">Cart</string>
     <string name="total">TOTAL</string>
+    <string name="search_product">Search Product</string>
+    <string name="continue_shopping">Continue shopping</string>
+    <string name="checkout">CHECKOUT</string>
+    <string name="your_cart_is_empty">Your cart is empty</string>
+    <string name="home_office_delivery"><![CDATA[Home & Office Delivery]]></string>
 </resources>

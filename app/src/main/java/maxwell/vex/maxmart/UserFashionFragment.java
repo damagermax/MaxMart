@@ -21,7 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import maxwell.vex.maxmart.adapters.UserFashionAdapter;
-import maxwell.vex.maxmart.modules.UserFashion;
+import maxwell.vex.maxmart.models.UserFashion;
 
 
 public class UserFashionFragment extends Fragment {

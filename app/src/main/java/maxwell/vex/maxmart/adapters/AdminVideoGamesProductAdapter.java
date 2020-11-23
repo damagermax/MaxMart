@@ -22,7 +22,7 @@ import com.squareup.picasso.Picasso;
 import java.util.List;
 
 import maxwell.vex.maxmart.R;
-import maxwell.vex.maxmart.modules.AdminVideoGames;
+import maxwell.vex.maxmart.models.AdminVideoGames;
 
 public class AdminVideoGamesProductAdapter extends RecyclerView.Adapter<AdminVideoGamesProductAdapter.AdminProductViewHolder> {
 

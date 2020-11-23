@@ -1,6 +1,6 @@
-package maxwell.vex.maxmart.modules;
+package maxwell.vex.maxmart.models;
 
-public class AdminVideoGames {
+public class AdminFashion {
     private  String name;
     private  String productID;
     private  String image;
@@ -8,10 +8,10 @@ public class AdminVideoGames {
     private  String description;
     private  String category;
 
-    public AdminVideoGames() {
+    public AdminFashion() {
     }
 
-    public AdminVideoGames(String name, String productID, String image, String price, String description, String category) {
+    public AdminFashion(String name, String productID, String image, String price, String description, String category) {
         this.name = name;
         this.productID = productID;
         this.image = image;

@@ -4,7 +4,6 @@
     android:orientation="vertical"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
-
     <androidx.cardview.widget.CardView
         android:layout_width="180dp"
         android:layout_height="250dp"
@@ -18,23 +17,22 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
             <RelativeLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content">
-
                 <ImageView
                     android:layout_width="match_parent"
-                    android:id="@+id/fashion_ImageIv"
+                    android:id="@+id/searchIv"
                     android:layout_height="180dp" />
-
                 <ProgressBar
-                    android:id="@+id/fashionPg"
+                    android:id="@+id/searchPg"
                     android:layout_width="match_parent"
                     android:layout_gravity="center"
                     android:padding="30dp"
                     android:layout_height="180dp" />
 
-            </RelativeLayout>
 
+
+            </RelativeLayout>
 
 
 
@@ -42,7 +40,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:id="@+id/fashion_NameTv"
+                android:id="@+id/searchNameTv"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="5dp"
                 android:layout_marginStart="5dp"
@@ -56,8 +54,7 @@
                 android:text="@string/vans_oldskool"
                 android:textColor="@color/black"
                 android:textSize="16sp"
-                android:id="@+id/fashion_PriceTv"
-
+                android:id="@+id/searchPriceTv"
                 android:layout_marginTop="5dp"
                 android:layout_marginEnd="5dp"
                 android:layout_marginBottom="5dp"
@@ -67,4 +64,5 @@
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>
+
 </LinearLayout>

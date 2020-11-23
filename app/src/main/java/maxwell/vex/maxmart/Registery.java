@@ -41,6 +41,7 @@ import com.squareup.picasso.Picasso;
 
 
 import java.util.HashMap;
+import java.util.Objects;
 
 public class Registery extends AppCompatActivity {
 
@@ -62,7 +63,7 @@ public class Registery extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        //getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_registery);
 
         // Hooks
@@ -177,7 +178,7 @@ public class Registery extends AppCompatActivity {
                         @Override
                         public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
                             if (!task.isSuccessful()) {
-                                throw task.getException();
+                                throw Objects.requireNonNull(task.getException());
                             }
                             return filepath.getDownloadUrl();
                         }

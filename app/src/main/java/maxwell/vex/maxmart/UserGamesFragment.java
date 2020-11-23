@@ -23,7 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import maxwell.vex.maxmart.adapters.UserGamesAdapter;
-import maxwell.vex.maxmart.modules.UserGames;
+import maxwell.vex.maxmart.models.UserGames;
 
 
 public class UserGamesFragment extends Fragment {
@@ -37,6 +37,7 @@ public class UserGamesFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
 
 
 
@@ -57,6 +58,7 @@ public class UserGamesFragment extends Fragment {
         gamesRecycler.setLayoutManager(new GridLayoutManager(getContext(), 2));
         gamesRecycler.setHasFixedSize(true);
         gamesRecycler.setAdapter(userGamesAdapter);
+
 
 
         gamesRef = FirebaseDatabase.getInstance().getReference("Categories").child("Video Games");

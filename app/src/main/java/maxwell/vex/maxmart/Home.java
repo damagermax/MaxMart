@@ -7,15 +7,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
@@ -23,7 +19,6 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,6 +26,7 @@ import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -45,14 +41,10 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
-import maxwell.vex.maxmart.adapters.UserFashionAdapter;
-import maxwell.vex.maxmart.adapters.UserGamesAdapter;
 import maxwell.vex.maxmart.admin.AdminLogin;
-import maxwell.vex.maxmart.modules.UserFashion;
-import maxwell.vex.maxmart.modules.UserGames;
+import maxwell.vex.maxmart.models.UserCartProduct;
 
 public class Home extends AppCompatActivity implements View.OnClickListener {
 
@@ -61,8 +53,8 @@ public class Home extends AppCompatActivity implements View.OnClickListener {
 
     private FirebaseUser user;
     private String currentUser;
-
-    private TextView gamesTv, fashionTv;
+    private int cartQuantity = 0;
+    private TextView gamesTv, fashionTv, cartBadgeTv;
 
     // editProfileDialog
     private static final int PICK_IMAGE_REQUEST = 1;
@@ -74,13 +66,12 @@ public class Home extends AppCompatActivity implements View.OnClickListener {
     private String name, address, downloadImageUrl;
     private StorageReference storageReference;
     private DatabaseReference databaseReference;
-    private ImageView logout, cartBtn;
+    private ImageView search, cartBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        // getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_home);
 
 
@@ -88,27 +79,25 @@ public class Home extends AppCompatActivity implements View.OnClickListener {
         gamesTv = findViewById(R.id.gamesTv);
         fashionTv = findViewById(R.id.fashionTv);
         cartBtn = findViewById(R.id.cartIv);
-        logout = findViewById(R.id.searchIv);
+        search = findViewById(R.id.searchIv);
+        cartBadgeTv = findViewById(R.id.cart_badge);
+        // FirebaseDatabase.getInstance().setPersistenceEnabled(true);
 
-        logout.setOnClickListener(new View.OnClickListener() {
+
+        /// make cart badge invisible => will make it visible if cart is not empty
+        cartBadgeTv.setVisibility(View.GONE);
+
+        /// opening search activity
+        search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FirebaseAuth user = FirebaseAuth.getInstance();
-                user.signOut();
-                startActivity(new Intent(getApplicationContext(), MainActivity2.class));
-                finish();
-                isDestroyed();
-                return;
+                startActivity(new Intent(getApplicationContext(), SearchProduct.class));
+
             }
         });
 
 
-        /// opening cart activity
-        cartBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) { startActivity(new Intent(getApplicationContext(),UserCart.class));
-            }
-        });
+
 
         /// opening fragments
         gamesTv.setOnClickListener(this);
@@ -123,15 +112,81 @@ public class Home extends AppCompatActivity implements View.OnClickListener {
         });
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new UserGamesFragment()).commit();
 
+
         /// getting current user's phone number
         gettingCurrentUser();
+        /// get cartQuantity
+        gettingCartQuantity();
 
         /// displaying current user's profile picture on actionbar
         displayCurrentUserInfo();
 
         /// opening admin panel
         openAdminPortal();
+
+        /// opening cart activity
+        cartBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(getApplicationContext(), UserCart.class);
+                intent.putExtra("cartQuantity",String.valueOf(cartQuantity));/// send cart quantity to cart activity
+                startActivity(intent);
+            }
+        });
+
+
     }
+
+    /// get cartQuantity
+    private void gettingCartQuantity() {
+
+        /// initializing firebase
+        DatabaseReference cartRef = FirebaseDatabase.getInstance().getReference();
+        cartRef.child("Cart list").child(currentUser).child("Products").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+
+                /// check if cart is empty
+                if (snapshot.exists()) {
+
+                    /// if cart if not empty
+
+                    /// reset  to zero before summing up
+                    cartQuantity = 0;
+
+                    /// looping through the database
+                    for (DataSnapshot cartDb : snapshot.getChildren()) {
+
+
+                        /// getting quantity of one product  from database
+                        int quantityOfOnProduct = Integer.parseInt(cartDb.child("quantity").getValue().toString());
+
+                        /// getting the total quantity
+                        cartQuantity = cartQuantity + quantityOfOnProduct;
+                        cartBadgeTv.setText(String.valueOf(cartQuantity));
+                        /// make cart badge visible
+                        cartBadgeTv.setVisibility(View.VISIBLE);
+                    }
+
+                }else {
+                    /// if cart is empty
+                    /// make cart badge invisible
+                    cartBadgeTv.setVisibility(View.GONE);
+
+                }
+
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+    }
+    /////////////////////////////////////////////////////////
 
     /// [ Edit Profile Functions - START] ///
     private void editProfileDialog() {

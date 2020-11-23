@@ -16,30 +16,31 @@
         android:background="@color/grey"
         android:orientation="horizontal">
 
+        <!-- profile pic -->
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/home_profile"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:scaleType="centerCrop"
             android:layout_centerVertical="true"
             android:layout_gravity="center_vertical"
             android:layout_marginStart="16dp"
-            android:src="@drawable/profile"/>
+            android:scaleType="centerCrop"
+            android:src="@drawable/profile" />
 
-
-
+        <!-- search-->
 
         <ImageView
             android:id="@+id/searchIv"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_centerVertical="true"
-            android:layout_marginEnd="16dp"
+            android:layout_marginEnd="24dp"
             android:layout_toStartOf="@id/cartIv"
-            android:scaleType="centerCrop"
             android:padding="5dp"
+            android:scaleType="centerCrop"
             android:src="@drawable/search" />
 
+        <!--cart-->
         <ImageView
             android:id="@+id/cartIv"
             android:layout_width="30dp"
@@ -50,6 +51,20 @@
             android:padding="5dp"
             android:scaleType="centerCrop"
             android:src="@drawable/cart" />
+
+        <!-- cart badge-->
+        <TextView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="10dp"
+            android:id="@+id/cart_badge"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/cart_badge"
+            android:gravity="center"
+            android:fontFamily="sans-serif-medium"
+            android:textColor="@color/white"
+            android:textSize="10sp" />
 
 
     </RelativeLayout>
@@ -77,18 +92,18 @@
                 android:id="@+id/gamesTv"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_marginEnd="10dp"
                 android:layout_weight="1"
                 android:background="@drawable/tadbtn"
                 android:gravity="center"
-                android:layout_marginEnd="10dp"
                 android:text="@string/gamesrf"
                 android:textColor="@color/GreyDark" />
 
             <TextView
                 android:id="@+id/fashionTv"
                 android:layout_width="match_parent"
-                android:layout_marginStart="10dp"
                 android:layout_height="match_parent"
+                android:layout_marginStart="10dp"
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="@string/dfashion"

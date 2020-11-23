@@ -10,14 +10,11 @@ import android.view.WindowManager;
 
 public class SplashScreen extends AppCompatActivity {
 
-    public static int TIME_OUT = 2000;
+    public static int TIME_OUT = 500;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.splash_screen);
 
 

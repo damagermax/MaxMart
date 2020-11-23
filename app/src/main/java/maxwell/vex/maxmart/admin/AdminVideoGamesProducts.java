@@ -19,7 +19,7 @@ import java.util.List;
 
 import maxwell.vex.maxmart.R;
 import maxwell.vex.maxmart.adapters.AdminVideoGamesProductAdapter;
-import maxwell.vex.maxmart.modules.AdminVideoGames;
+import maxwell.vex.maxmart.models.AdminVideoGames;
 
 public class AdminVideoGamesProducts extends AppCompatActivity  {
 

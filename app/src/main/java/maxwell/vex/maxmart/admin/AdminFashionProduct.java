@@ -18,7 +18,7 @@ import java.util.List;
 
 import maxwell.vex.maxmart.R;
 import maxwell.vex.maxmart.adapters.AdminFashionAdapter;
-import maxwell.vex.maxmart.modules.AdminFashion;
+import maxwell.vex.maxmart.models.AdminFashion;
 
 public class AdminFashionProduct extends AppCompatActivity {
 

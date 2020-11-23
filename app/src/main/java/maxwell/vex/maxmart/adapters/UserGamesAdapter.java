@@ -6,12 +6,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
 
@@ -19,7 +20,7 @@ import java.util.List;
 
 import maxwell.vex.maxmart.ProductDetail;
 import maxwell.vex.maxmart.R;
-import maxwell.vex.maxmart.modules.UserGames;
+import maxwell.vex.maxmart.models.UserGames;
 
 public class UserGamesAdapter extends RecyclerView.Adapter<UserGamesAdapter.UserGamesViewHolder> {
 
@@ -41,32 +42,52 @@ public class UserGamesAdapter extends RecyclerView.Adapter<UserGamesAdapter.User
     }
 
     @Override
-    public void onBindViewHolder(@NonNull UserGamesViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final UserGamesViewHolder holder, int position) {
+        /// getting the position of an item
         UserGames userGames = userGamesList.get(position);
+        //////////////////////////////////////////////////
 
+        /// getting data
         String image = userGames.getImage();
         String name = userGames.getName();
         String price = userGames.getPrice();
         final String productID = userGames.getProductID();
         final String category = userGames.getCategory();
         String priceI = "GH₵ " + price;
+        /////////////////////////////////////////////
 
+        /// setting data to view
         holder.gamePrice.setText(priceI);
         holder.gameName.setText(name);
         Picasso.with(gCtx).load(image)
-                .fit().centerCrop().into(holder.gameImage);
+                .fit().centerCrop().into(holder.gameImage, new Callback() {
+            @Override
+            public void onSuccess() {
+                /// hiding progressBar
+                holder.gamesProgressBar.setVisibility(View.GONE);
 
+            }
+
+            @Override
+            public void onError() {
+
+            }
+        });
+        /////////////////////////////////////////////////////////////////////////
+
+        /// passing data to to product detail activity
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(gCtx, ProductDetail.class);
-                intent.putExtra("category", category);
-                intent.putExtra("gamesID", productID);
+                intent.putExtra("categoryID", category);
+                intent.putExtra("productID", productID);
                 gCtx.startActivity(intent);
 
 
             }
         });
+        ////////////////////////////////////////////////
 
     }
 
@@ -77,15 +98,18 @@ public class UserGamesAdapter extends RecyclerView.Adapter<UserGamesAdapter.User
 
     public static class UserGamesViewHolder extends RecyclerView.ViewHolder {
 
+
         private ImageView gameImage;
         private TextView gamePrice;
         private TextView gameName;
+        private ProgressBar gamesProgressBar;
 
         public UserGamesViewHolder(@NonNull View itemView) {
             super(itemView);
             gameImage = itemView.findViewById(R.id.gameImageIv);
             gameName = itemView.findViewById(R.id.gameNameTv);
             gamePrice = itemView.findViewById(R.id.gamePriceTv);
+            gamesProgressBar=itemView.findViewById(R.id.gamePg);
         }
     }
 }
