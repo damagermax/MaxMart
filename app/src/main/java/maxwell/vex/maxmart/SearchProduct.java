@@ -33,9 +33,7 @@ public class SearchProduct extends AppCompatActivity {
 
     private SearchAdapter searchAdapter;
     private List<SearchProducts>searchProductsList;
-
-    private Thread thread;
-
+    private String key;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,8 +41,7 @@ public class SearchProduct extends AppCompatActivity {
        // getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_search);
 
-        thread=new Thread(new MyThread());
-        thread.start();
+
 
         backBtn=findViewById(R.id.searchBackBtn);
         searchInput=findViewById(R.id.searchEt);
@@ -56,21 +53,14 @@ public class SearchProduct extends AppCompatActivity {
         });
 
         /// getting data from firebase
-
-
+        gettingKey();
 
     }
 
 
 
 
-    class MyThread extends Thread {
-        @Override
-        public void run() {
-            gettingKey();
 
-        }
-    }
     private void gettingKey() {
         DatabaseReference databaseReference=FirebaseDatabase.getInstance().getReference("Categories");
         databaseReference.addValueEventListener(new ValueEventListener() {
@@ -78,7 +68,7 @@ public class SearchProduct extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
                 for (DataSnapshot dataSnapshot:snapshot.getChildren()){
-                   String key=dataSnapshot.getKey().toString();
+                   String key=dataSnapshot.getRef().getKey().toString();
                     //Toast.makeText(getApplicationContext(),key,Toast.LENGTH_SHORT).show();
                     loadingData(key);
 
