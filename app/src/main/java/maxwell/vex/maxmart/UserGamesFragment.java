@@ -17,6 +17,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
@@ -30,7 +31,6 @@ public class UserGamesFragment extends Fragment {
 
 
     private RecyclerView gamesRecycler;
-    private DatabaseReference gamesRef;
     private List<UserGames> userGamesList;
     private UserGamesAdapter userGamesAdapter;
 
@@ -61,7 +61,7 @@ public class UserGamesFragment extends Fragment {
 
 
 
-        gamesRef = FirebaseDatabase.getInstance().getReference("Categories").child("Video Games");
+      Query gamesRef = FirebaseDatabase.getInstance().getReference("Products").orderByChild("category").equalTo("Video Games");
         gamesRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {

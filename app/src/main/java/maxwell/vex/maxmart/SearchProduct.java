@@ -3,48 +3,54 @@ package maxwell.vex.maxmart;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.view.View;
-import android.view.WindowManager;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.Toast;
+import android.widget.ImageView;
+import android.widget.ListView;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import maxwell.vex.maxmart.adapters.SearchAdapter;
-import maxwell.vex.maxmart.models.SearchProducts;
+import maxwell.vex.maxmart.adapters.AllProductAdapter;
+import maxwell.vex.maxmart.models.AllProducts;
+import maxwell.vex.maxmart.models.UserSearchProduct;
 
 public class SearchProduct extends AppCompatActivity {
 
-    private RecyclerView searchRv;
-    private ImageButton backBtn;
-    private EditText searchInput;
 
-    private SearchAdapter searchAdapter;
-    private List<SearchProducts>searchProductsList;
-    private String key;
+    /// listView variables
+    private ListView listView;
+    private ImageView backBtn;
+    private EditText searchInput;
+    private List<UserSearchProduct> searchProductList;
+    private ArrayAdapter<UserSearchProduct> searchAdapter;
+    /// recyclerView variables
+    private RecyclerView searchRv;
+    private AllProductAdapter allProductAdapter;
+    private List<AllProducts> allProductsList;
+    private String searchText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-       // getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_search);
 
-
-
-        backBtn=findViewById(R.id.searchBackBtn);
-        searchInput=findViewById(R.id.searchEt);
+        /// Hooks
+        listView = findViewById(R.id.search_outPut);
+        backBtn = findViewById(R.id.cancel_search);
+        searchInput = findViewById(R.id.searchEt);
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -52,27 +58,33 @@ public class SearchProduct extends AppCompatActivity {
             }
         });
 
-        /// getting data from firebase
-        gettingKey();
+        searchText = searchInput.getText().toString();
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                UserSearchProduct userSearchProduct = searchProductList.get(position);
+            }
+        });
+
+        /// load  all products  from database to recyclerView
+        loadingAllProduct();
+
+        /// search data
+        searchForProduct();
 
     }
 
+    private void searchForProduct() {
+        searchProductList = new ArrayList<>();
+        searchAdapter = new ArrayAdapter<UserSearchProduct>
+                (this, android.R.layout.simple_list_item_1, searchProductList);
 
-
-
-
-    private void gettingKey() {
-        DatabaseReference databaseReference=FirebaseDatabase.getInstance().getReference("Categories");
-        databaseReference.addValueEventListener(new ValueEventListener() {
+        Query search = FirebaseDatabase.getInstance().getReference("Products")
+                .orderByChild("name").startAt(searchText).endAt(searchText+"\uf8ff");
+        search.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-
-                for (DataSnapshot dataSnapshot:snapshot.getChildren()){
-                   String key=dataSnapshot.getRef().getKey().toString();
-                    //Toast.makeText(getApplicationContext(),key,Toast.LENGTH_SHORT).show();
-                    loadingData(key);
-
-                }
 
             }
 
@@ -82,28 +94,29 @@ public class SearchProduct extends AppCompatActivity {
             }
         });
     }
-    private void loadingData(String key) {
-        searchRv=findViewById(R.id.searchRv);
+
+    /// load  data from database to recyclerView
+    private void loadingAllProduct() {
+        searchRv = findViewById(R.id.searchRv);
         searchRv.setHasFixedSize(true);
-        searchRv.setLayoutManager(new GridLayoutManager(this,2));
-        searchProductsList=new ArrayList<>();
-        searchAdapter=new SearchAdapter(searchProductsList, this);
-        searchRv.setAdapter(searchAdapter);
+        searchRv.setLayoutManager(new GridLayoutManager(this, 2));
+        allProductsList = new ArrayList<>();
+        allProductAdapter = new AllProductAdapter(allProductsList, this);
+        searchRv.setAdapter(allProductAdapter);
 
-        DatabaseReference databaseReference= FirebaseDatabase.getInstance().getReference("Categories").child(key);
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Products");
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                searchProductsList.clear();
-                for (DataSnapshot DB1:snapshot.getChildren()){
-                    String key=DB1.getRef().getKey().toString();
-                    SearchProducts searchProducts=DB1.getValue(SearchProducts.class);
-                    searchProductsList.add(searchProducts);
+                allProductsList.clear();
+                for (DataSnapshot DB1 : snapshot.getChildren()) {
 
+                    AllProducts allProducts = DB1.getValue(AllProducts.class);
+                    allProductsList.add(allProducts);
 
 
                 }
-                searchAdapter.notifyDataSetChanged();
+                allProductAdapter.notifyDataSetChanged();
 
             }
 
@@ -115,4 +128,5 @@ public class SearchProduct extends AppCompatActivity {
 
 
     }
+    ////////////////////////////////////////////
 }

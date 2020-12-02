@@ -123,27 +123,27 @@ public class OTP extends AppCompatActivity {
 
             }
         }).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if (task.isSuccessful()) {
 
 
-                            Intent intent = new Intent(getApplicationContext(), Registery.class);
-                            intent.putExtra("fullNumber", fullNumber);
-                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                            startActivity(intent);
-                            finish();
+                    Intent intent = new Intent(getApplicationContext(), Registery.class);
+                    intent.putExtra("fullNumber", fullNumber);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
+                    finish();
 
-                        } else {
+                } else {
 
 
-                            if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
-                                Toast.makeText(getApplicationContext(), "The verification code entered was invalid",
-                                        Toast.LENGTH_SHORT).show();
-                            }
-                        }
+                    if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
+                        Toast.makeText(getApplicationContext(), "The verification code entered was invalid",
+                                Toast.LENGTH_SHORT).show();
                     }
-                });
+                }
+            }
+        });
     }
 
     // Showing number to user

@@ -1,45 +1,42 @@
 package maxwell.vex.maxmart.admin;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.view.WindowManager;
-import android.widget.TextView;
 
 import maxwell.vex.maxmart.R;
 
 public class AdminPanel extends AppCompatActivity implements View.OnClickListener {
 
-    private TextView addProduct,fashion,games;
+    private CardView productManagement,orderManagement;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+       // getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_admin_panel);
 
-        addProduct=findViewById(R.id.add_product);
-        fashion=findViewById(R.id.fashion);
-        games=findViewById(R.id.games);
+        productManagement=findViewById(R.id.product_management);
+        orderManagement=findViewById(R.id.order_management);
 
 
-        addProduct.setOnClickListener(this);
-        fashion.setOnClickListener(this);
-        games.setOnClickListener(this);
+        productManagement.setOnClickListener(this);
+        orderManagement.setOnClickListener(this);
+
     }
     public void  onClick(View view){
         switch ( view.getId()){
-            case R.id.add_product:
-                startActivity(new Intent(getApplicationContext(),AdminAddProduct.class));
-                break;
 
-            case R.id.games:
-                startActivity(new Intent(getApplicationContext(), AdminVideoGamesProducts.class));
+
+            case R.id.product_management:
+                startActivity(new Intent(getApplicationContext(), AdminProductManagement.class));
                 break;
-            case R.id.fashion:
-                startActivity(new Intent(getApplicationContext(),AdminFashionProduct.class));
+            case R.id.order_management:
+                startActivity(new Intent(getApplicationContext(), AdminOrderManagement.class));
+                break;
 
         }
 

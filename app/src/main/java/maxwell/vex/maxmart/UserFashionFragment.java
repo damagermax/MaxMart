@@ -15,6 +15,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
@@ -28,7 +29,7 @@ public class UserFashionFragment extends Fragment {
     private List<UserFashion> userFashionList;
     private UserFashionAdapter userFashionAdapter;
     private RecyclerView fashionRecycler;
-    private DatabaseReference fashionRef;
+
 
 
     @Override
@@ -48,8 +49,9 @@ public class UserFashionFragment extends Fragment {
         userFashionAdapter = new UserFashionAdapter(getContext(), userFashionList);
         fashionRecycler.setAdapter(userFashionAdapter);
 
-        fashionRef = FirebaseDatabase.getInstance().getReference("Categories").child("Fashion");
-        fashionRef.addValueEventListener(new ValueEventListener() {
+        /// Shorting Fashion Items
+       Query fashion = FirebaseDatabase.getInstance().getReference("Products").orderByChild("category").equalTo("Fashion");
+        fashion.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 userFashionList.clear();

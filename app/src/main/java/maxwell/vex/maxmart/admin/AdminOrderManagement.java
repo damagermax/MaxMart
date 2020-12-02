@@ -20,7 +20,7 @@ import maxwell.vex.maxmart.R;
 import maxwell.vex.maxmart.adapters.AdminFashionAdapter;
 import maxwell.vex.maxmart.models.AdminFashion;
 
-public class AdminFashionProduct extends AppCompatActivity {
+public class AdminOrderManagement extends AppCompatActivity {
 
     private List<AdminFashion>fashionList;
     private AdminFashionAdapter fashionAdapter;
@@ -30,7 +30,7 @@ public class AdminFashionProduct extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_admin_fashion_product);
+        setContentView(R.layout.admin_order_management);
 
         showFashionProduct();
     }

@@ -41,7 +41,7 @@ public class AdminFashionAdapter extends RecyclerView.Adapter<AdminFashionAdapte
     @Override
     public AdminFashionViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater=LayoutInflater.from(fCtx);
-        View view=inflater.inflate(R.layout.admin_fashion_item,null);
+        View view=inflater.inflate(R.layout.admin_order_management_item,null);
         return new AdminFashionViewHolder(view);
     }
 

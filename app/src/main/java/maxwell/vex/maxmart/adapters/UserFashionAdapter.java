@@ -76,8 +76,7 @@ public class UserFashionAdapter extends RecyclerView.Adapter<UserFashionAdapter.
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(fCtx, ProductDetail.class);
-                intent.putExtra("categoryID", category);
-                intent.putExtra("productID", productID);
+                intent.putExtra("productID", productID); // pass productID to productDetails activity to display info
                 fCtx.startActivity(intent);
             }
         });

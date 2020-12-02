@@ -40,6 +40,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import es.dmoral.toasty.Toasty;
 import maxwell.vex.maxmart.R;
 
 public class AdminAddProduct extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
@@ -49,8 +50,8 @@ public class AdminAddProduct extends AppCompatActivity implements AdapterView.On
     private Button uploadBtn;
     private CheckBox checkBox;
     private ImageButton backBtn;
-    private String productName, productPrice, productDescription;
-    private  String saveCurrentDate,saveCurrentTime, productRandomKey;
+    private String productName, productPrice, productDescription,productID;
+    private  String saveCurrentDate,saveCurrentTime;
 
     /// [ Image From Gallery] ///
     private static final  int PICK_IMAGE_REQUEST = 1;
@@ -93,7 +94,7 @@ public class AdminAddProduct extends AppCompatActivity implements AdapterView.On
 
 
         /// [ Initializing Firebase ] ///
-        databaseReference = FirebaseDatabase.getInstance().getReference("Categories");
+        databaseReference = FirebaseDatabase.getInstance().getReference("Products");
         storageReference = FirebaseStorage.getInstance().getReference("Categories");
 
         ///  [ Getting Input From Fields ] ///
@@ -181,9 +182,9 @@ public class AdminAddProduct extends AppCompatActivity implements AdapterView.On
         SimpleDateFormat currentTime = new SimpleDateFormat("hh:mm:ss a");
         saveCurrentTime =currentTime.format(calendar.getTime());
 
-        productRandomKey=saveCurrentDate+saveCurrentTime;
+        productID=saveCurrentDate+saveCurrentTime;
 
-       final StorageReference filepath =storageReference.child( productRandomKey+".JPG");
+       final StorageReference filepath =storageReference.child( productID+".JPG");
         final UploadTask uploadTask=filepath.putFile(productUri);
        mUpload= uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
@@ -229,35 +230,24 @@ public class AdminAddProduct extends AppCompatActivity implements AdapterView.On
         productMap.put("image",downloadUrl);
         productMap.put("category",item);
         productMap.put("description",productDescription);
-        productMap.put("productID",productRandomKey);
+        productMap.put("productID",productID);
 
+        databaseReference.child(productID).updateChildren(productMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()){
+                    Toasty.success(getApplicationContext(),"Product added successfully",Toast.LENGTH_SHORT).show();
+                    checkBox.setChecked(false);
+                }else {
+                    Toasty.error(getApplicationContext(),"Product not saved",Toast.LENGTH_SHORT).show();
 
-        if (item.equals("Video Games")){
-            databaseReference.child(item).child(productRandomKey)
-                    .updateChildren(productMap).addOnSuccessListener(new OnSuccessListener<Void>() {
-                @Override
-                public void onSuccess(Void aVoid) {
-
-                        checkBox.setChecked(false);
 
                 }
-            });
 
-        }
-
-        else if (item.equals("Fashion")){
-            databaseReference.child(item).child(productRandomKey)
-                    .updateChildren(productMap).addOnSuccessListener(new OnSuccessListener<Void>() {
-                @Override
-                public void onSuccess(Void aVoid) {
+            }
+        });
 
 
-                        checkBox.setChecked(false);
-
-                }
-            });
-
-        }
     }
 
 

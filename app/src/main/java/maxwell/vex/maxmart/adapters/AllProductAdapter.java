@@ -1,6 +1,7 @@
 package maxwell.vex.maxmart.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,16 +17,16 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
+import maxwell.vex.maxmart.ProductDetail;
 import maxwell.vex.maxmart.R;
-import maxwell.vex.maxmart.SearchProduct;
-import maxwell.vex.maxmart.models.SearchProducts;
+import maxwell.vex.maxmart.models.AllProducts;
 
-public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchViewHolder> {
+public class AllProductAdapter extends RecyclerView.Adapter<AllProductAdapter.SearchViewHolder> {
 
-    private List<SearchProducts>searchProductList;
+    private List<AllProducts>searchProductList;
     private Context sCtx;
 
-    public SearchAdapter(List<SearchProducts> searchProductList, Context sCtx) {
+    public AllProductAdapter(List<AllProducts> searchProductList, Context sCtx) {
         this.searchProductList = searchProductList;
         this.sCtx = sCtx;
     }
@@ -40,11 +41,11 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
 
     @Override
     public void onBindViewHolder(@NonNull final SearchViewHolder holder, int position) {
-        SearchProducts searchProducts =searchProductList.get(position);
+        final AllProducts allProducts =searchProductList.get(position);
         /// setting data
-        holder.name.setText(searchProducts.getName());
-        holder.price.setText(searchProducts.getPrice());
-        Picasso.with(sCtx).load(searchProducts.getImage()).fit().centerCrop().into(holder.image, new Callback() {
+        holder.name.setText(allProducts.getName());
+        holder.price.setText(allProducts.getPrice());
+        Picasso.with(sCtx).load(allProducts.getImage()).fit().centerCrop().into(holder.image, new Callback() {
             @Override
             public void onSuccess() {
                 holder.progressBar.setVisibility(View.GONE);
@@ -53,6 +54,16 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
             @Override
             public void onError() {
 
+            }
+        });
+
+        /// passing dara to product detail screen when an item is clicked
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(sCtx, ProductDetail.class);
+                intent.putExtra("productID", allProducts.getProductID()); // pass productID to productDetails activity to display info
+                sCtx.startActivity(intent);
             }
         });
 

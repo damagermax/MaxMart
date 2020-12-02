@@ -21,6 +21,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
@@ -67,13 +68,13 @@ public class ProductDetail extends AppCompatActivity implements View.OnClickList
         // Getting  intent
         Intent intent = getIntent();
         productID = intent.getStringExtra("productID");
-        categoryID = intent.getStringExtra("categoryID");
+
 
         /// add to cart click
         addToCart.setOnClickListener(this);
 
         /// Checking if data passed is not null before getting data from database
-        if ((categoryID != null) && (productID != null)) {
+        if (productID != null) {
 
             /// get product details
             getProductDetails();
@@ -97,8 +98,8 @@ public class ProductDetail extends AppCompatActivity implements View.OnClickList
 
     /// getting  product details to display
     private void getProductDetails() {
-        DatabaseReference fashionRef = FirebaseDatabase.getInstance().getReference().child("Categories").child(categoryID).child(productID);
-        fashionRef.addValueEventListener(new ValueEventListener() {
+        DatabaseReference details = FirebaseDatabase.getInstance().getReference().child("Products").child(productID);
+        details.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
@@ -135,9 +136,9 @@ public class ProductDetail extends AppCompatActivity implements View.OnClickList
     private void addProductsToCart() {
 
 
-        /// check if productId is not empty
-        if (productID != null) {
-            /// if productID is no empty
+        /// check if values are  not empty
+        if ((productID != null) && (productName!=null)&&(productPrice!=null)&&(productImage!=null)) {
+            /// if values are  not empty
 
             final HashMap<String, Object> cartMap = new HashMap<>();
             cartMap.put("name", productName);
@@ -148,13 +149,12 @@ public class ProductDetail extends AppCompatActivity implements View.OnClickList
 
             /// initialize firebaseDatabase
             DatabaseReference addToCartRef=FirebaseDatabase.getInstance().getReference();
-
+            /// saving items to database (cart list)
             addToCartRef.child("Cart list").child(currentUser).child("Products")
                     .child(productID).updateChildren(cartMap)
                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
-
                             Toasty.success(getApplicationContext(), productName + " added to cart", Toast.LENGTH_SHORT).show();
 
                         }

@@ -17,8 +17,8 @@
         <activity android:name=".SearchProduct" />
         <activity android:name=".UserCart" />
         <activity android:name=".ProductDetail" />
-        <activity android:name=".admin.AdminFashionProduct" />
-        <activity android:name=".admin.AdminVideoGamesProducts" />
+        <activity android:name=".admin.AdminOrderManagement" />
+        <activity android:name=".admin.AdminProductManagement" />
         <activity android:name=".admin.AdminAddProduct" />
         <activity android:name=".admin.AdminPanel" />
         <activity android:name=".admin.AdminLogin" />

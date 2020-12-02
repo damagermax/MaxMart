@@ -1,65 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:orientation="vertical"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".SearchProduct">
 
+    <!-- actionbar -->
     <RelativeLayout
-        android:id="@+id/toolbarRL"
+        android:id="@+id/action_bar"
         android:layout_width="match_parent"
         android:layout_height="55dp"
-        android:background="@color/grey"
+        android:background="@color/GreyDark"
         android:orientation="horizontal">
-
-        <ImageButton
-            android:id="@+id/searchBackBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <!-- search container-->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:id="@+id/search_container"
             android:layout_centerVertical="true"
             android:layout_marginStart="16dp"
-            android:background="@color/grey"
-            android:padding="5dp"
-            android:scaleType="center"
-            android:src="@drawable/ic_baseline_arrow_back_24" />
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/stroke">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginStart="70dp"
-            android:text="@string/search_product"
-            android:textColor="@color/white"
-            android:textSize="20sp"
-            android:textStyle="bold" />
+            <!--Search input-->
+            <EditText
+                android:id="@+id/searchEt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="50dp"
+                android:background="@drawable/stroke"
+                android:fontFamily="sans-serif-medium"
+                android:hint="@string/search_product"
+                android:maxLines="1"
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp"
+                android:textSize="16sp" />
+            <!-- cancel button-->
+            <ImageView
+                android:id="@+id/cancel_search"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/stroke"
+                android:elevation="50dp"
+                android:src="@drawable/ic_clear_black_24dp" />
+
+        </RelativeLayout>
+
 
     </RelativeLayout>
-    <RelativeLayout
+
+
+    <!-- Recycler View-->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/searchRv"
+        android:layout_below="@id/action_bar"
         android:layout_width="match_parent"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginTop="7dp"
-        android:layout_height="wrap_content">
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-           android:paddingStart="20dp"
-            android:maxLines="1"
-            android:id="@+id/searchEt"
-            android:background="@drawable/stroke"
-            android:hint="Search "/>
-    </RelativeLayout>
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
-        android:layout_height="wrap_content">
-        <androidx.recyclerview.widget.RecyclerView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/searchRv"/>
-    </RelativeLayout>
+        android:layout_height="match_parent"
 
-</LinearLayout>
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp" />
+
+   <ListView
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:layout_marginStart="16dp"
+       android:layout_marginEnd="16dp"
+       android:layout_below="@id/action_bar"
+       android:id="@+id/search_outPut"/>
+
+</RelativeLayout>

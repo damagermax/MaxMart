@@ -1,17 +1,19 @@
 package maxwell.vex.maxmart.models;
 
-public class SearchProducts {
+public class AllProducts {
     private  String name;
     private  String price;
-    private  String Image;
+    private  String image;
+    private  String productID;
 
-    public SearchProducts() {
+    public AllProducts() {
     }
 
-    public SearchProducts(String name, String price, String image) {
+    public AllProducts(String name, String price, String image, String productID) {
         this.name = name;
         this.price = price;
-        this.Image = image;
+        this.image = image;
+        this.productID = productID;
     }
 
     public String getName() {
@@ -31,10 +33,18 @@ public class SearchProducts {
     }
 
     public String getImage() {
-        return Image;
+        return image;
     }
 
     public void setImage(String image) {
-        Image = image;
+        this.image = image;
+    }
+
+    public String getProductID() {
+        return productID;
+    }
+
+    public void setProductID(String productID) {
+        this.productID = productID;
     }
 }
