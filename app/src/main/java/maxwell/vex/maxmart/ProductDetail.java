@@ -2,6 +2,8 @@ package maxwell.vex.maxmart;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -26,21 +28,26 @@ import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.List;
 
 import es.dmoral.toasty.Toasty;
 
 public class ProductDetail extends AppCompatActivity implements View.OnClickListener {
 
     private ImageButton backBtn;
-    private ImageView detailImage;
+    private ImageView detailImage,likeBtn;
     private TextView detailName, detailPrice, detailDesc;
     private String categoryID, productID;
-    private TextView call, addToCart;
+    private Button addToCart;
     private String currentUser;
     private String productName, productPrice, productImage, productDesc;
 
+    private List<SimilarProducts>similarProductsList;
+    private  SimilarProductAdapter similarProductAdapter;
+    private RecyclerView similarRecyclerView;
 
 
     @Override
@@ -55,36 +62,71 @@ public class ProductDetail extends AppCompatActivity implements View.OnClickList
         detailDesc = findViewById(R.id.detail_desc);
         detailImage = findViewById(R.id.detail_imageTv);
         addToCart = findViewById(R.id.add_to_cart);
-        call = findViewById(R.id.call);
+        likeBtn=findViewById(R.id.like_product);
+        similarRecyclerView=findViewById(R.id.similarRV);
 
 
-        backBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onBackPressed();
-            }
-        });
-
-        // Getting  intent
-        Intent intent = getIntent();
-        productID = intent.getStringExtra("productID");
 
 
         /// add to cart click
         addToCart.setOnClickListener(this);
+        backBtn.setOnClickListener(this);
 
-        /// Checking if data passed is not null before getting data from database
-        if (productID != null) {
-
-            /// get product details
-            getProductDetails();
-
-        }
+        /// get product details
+        getProductDetails();
 
         /// get current user
         gettingCurrentUser();
 
+        /// display similar products
+        getSimilarProducts();
+
     }
+
+    /// getting similar products from database
+    private void getSimilarProducts() {
+
+        /// getting intent from adapter class
+        String category=getIntent().getStringExtra("category");
+
+        /// checking if category is no null
+        if (category!=null){
+
+            similarRecyclerView.setHasFixedSize(true);
+            similarRecyclerView.setLayoutManager(new LinearLayoutManager(this,RecyclerView.HORIZONTAL,false));
+            similarProductsList= new ArrayList<>();
+            similarProductAdapter=new SimilarProductAdapter(this,similarProductsList);
+            similarRecyclerView.setAdapter(similarProductAdapter);
+
+            Query similarQuery =FirebaseDatabase.getInstance().getReference("Products").orderByChild("category").equalTo(category);
+            similarQuery.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                    similarProductsList.clear();
+                    if (snapshot.exists()){
+                        for (DataSnapshot similar:snapshot.getChildren()){
+
+                            SimilarProducts similarProducts=similar.getValue(SimilarProducts.class);
+                            similarProductsList.add(similarProducts);
+
+                        }
+
+                    }
+                    similarProductAdapter.notifyDataSetChanged();
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+        }
+
+
+
+    }
+    //////////////////////////////////////////
 
     /// getting current user with phone number
     private void gettingCurrentUser() {
@@ -98,37 +140,53 @@ public class ProductDetail extends AppCompatActivity implements View.OnClickList
 
     /// getting  product details to display
     private void getProductDetails() {
-        DatabaseReference details = FirebaseDatabase.getInstance().getReference().child("Products").child(productID);
-        details.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-                /// check if database is not empty
-                if (snapshot.exists()) {
-                    /// if database is not empty get data
 
-                    productName = snapshot.child("name").getValue(String.class);
-                    productPrice = snapshot.child("price").getValue(String.class);
-                    productImage = snapshot.child("image").getValue(String.class);
-                    productDesc = snapshot.child("description").getValue(String.class);
+        // Getting  intent
+        Intent intent = getIntent();
+        productID = intent.getStringExtra("productID");
 
-                    ///set data to views
-                    detailDesc.setText(productDesc);
-                    detailName.setText(productName);
-                    detailPrice.setText("GH₵ " + productPrice);
-                    Picasso.with(getApplicationContext()).load(productImage).fit().centerInside()
-                            .into(detailImage);
+
+        /// Checking if data passed is not null before getting data from database
+        if (productID != null) {
+
+            DatabaseReference details = FirebaseDatabase.getInstance().getReference().child("Products").child(productID);
+            details.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                    /// check if database is not empty
+                    if (snapshot.exists()) {
+                        /// if database is not empty get data
+
+                        productName = snapshot.child("name").getValue(String.class);
+                        productPrice = snapshot.child("price").getValue(String.class);
+                        productImage = snapshot.child("image").getValue(String.class);
+                        productDesc = snapshot.child("description").getValue(String.class);
+
+                        ///set data to views
+                        detailDesc.setText(productDesc);
+                        detailName.setText(productName);
+                        detailPrice.setText("GH₵ " + productPrice);
+                        Picasso.with(getApplicationContext()).load(productImage).fit().centerInside()
+                                .into(detailImage);
+
+                    }
 
                 }
 
-            }
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                    Toasty.error(getApplicationContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Toasty.error(getApplicationContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            });
 
-            }
-        });
+
+
+        }
+
+
     }
     ///////////////////////////////////////
 
@@ -164,14 +222,17 @@ public class ProductDetail extends AppCompatActivity implements View.OnClickList
     ///////////////////////////////////////
 
 
-
     @Override
     public void onClick(View v) {
 
         /// get ids and compare
         if (v.getId() == R.id.add_to_cart) {
-            /// add product to cart
-            addProductsToCart();
+
+            addProductsToCart();  /// add product to cart
+
+        }else  if (v.getId()==R.id.backBtn_pd){
+
+            onBackPressed();  ///  move to previous screen
         }
     }
 

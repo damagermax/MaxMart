@@ -1,5 +1,5 @@
 package maxwell.vex.maxmart.Interface;
 
-public interface AdminProductDelete {
+public interface AdminProductManagementActions {
     void  deleteProduct(int position);
 }

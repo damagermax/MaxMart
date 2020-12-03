@@ -4,147 +4,199 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
     tools:context=".ProductDetail">
 
     <!-- action bar-->
     <RelativeLayout
-    android:id="@+id/toolbarRL"
-    android:layout_width="match_parent"
-    android:layout_height="55dp"
-    android:background="@color/GreyDark"
-    android:orientation="horizontal">
-
-    <ImageButton
-        android:id="@+id/backBtn_pd"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_marginStart="16dp"
+        android:id="@+id/toolbarRL"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
         android:background="@color/GreyDark"
-        android:padding="5dp"
-        android:scaleType="center"
-        android:src="@drawable/ic_baseline_arrow_back_24" />
+        android:orientation="horizontal">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_marginStart="70dp"
-        android:text="@string/details"
-        android:textColor="@color/white"
-        android:textSize="20sp"
-        android:fontFamily="sans-serif-medium" />
+        <ImageButton
+            android:id="@+id/backBtn_pd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="16dp"
+            android:background="@color/GreyDark"
+            android:padding="5dp"
+            android:scaleType="center"
+            android:src="@drawable/ic_baseline_arrow_back_24" />
 
-</RelativeLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="70dp"
+            android:fontFamily="sans-serif-medium"
+            android:text="@string/details"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
+
+    </RelativeLayout>
 
     <ScrollView
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_below="@id/toolbarRL"
         android:layout_marginBottom="20dp"
-        android:scrollbars="none"
-        android:layout_height="wrap_content">
+        android:scrollbars="none">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-
-
+            <!-- product image -->
             <ImageView
                 android:id="@+id/detail_imageTv"
                 android:layout_width="match_parent"
-                android:layout_marginTop="20dp"
-                android:layout_height="300dp"
+                android:layout_height="350dp"
                 android:layout_gravity="center"
                 android:padding="5dp" />
 
+            <!-- product name and price -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardUseCompatPadding="true">
 
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <!-- product name -->
+                    <TextView
+                        android:id="@+id/detail_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:textColor="@color/GreyDark"
+                        android:fontFamily="sans-serif-medium"
+                        android:gravity="center_vertical"
+                        android:text="@string/vans_oldskool"
+                        android:textSize="20sp" />
+
+                    <!-- product price -->
+                    <TextView
+                        android:id="@+id/detail_price"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/detail_name"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginEnd="16dp"
+                        android:layout_marginBottom="10dp"
+                        android:gravity="center_vertical"
+                        android:text="12,555"
+                        android:textSize="17sp" />
+
+                    <!-- like product-->
+                    <ImageView
+                        android:id="@+id/like_product"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="16dp"
+                        android:src="@drawable/like" />
+
+                </RelativeLayout>
+
+
+            </androidx.cardview.widget.CardView>
+
+            <!-- product description -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardElevation="5dp"
+                app:cardUseCompatPadding="true">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <!-- description tittle -->
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="10dp"
+                        android:text="Description"
+                        android:textColor="@color/GreyDark"
+                        android:textSize="17sp" />
+
+                    <!-- product description -->
+                    <TextView
+                        android:id="@+id/detail_desc"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:gravity="center_vertical"
+                        android:lineSpacingMultiplier="1.5"
+                        android:text="@string/vans_oldskool"
+                        android:textSize="15sp" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- similar product tittle -->
             <TextView
-                android:id="@+id/detail_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
+                android:text="Similar Products"
+                android:textSize="17sp"
+                android:layout_marginTop="12dp"
+                android:textColor="@color/GreyDark"
+                android:layout_marginStart="16dp"/>
+
+            <!-- similar products recyclerView -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/similarRV"
                 android:layout_marginTop="10dp"
-                android:layout_gravity="center"
-                android:layout_marginEnd="16dp"
-                android:gravity="center_vertical"
-                android:text="@string/vans_oldskool"
-                android:textSize="30sp" />
-
-            <TextView
-                android:id="@+id/detail_price"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:textStyle="bold"
+                android:layout_height="230dp" />
 
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:gravity="center"
-                android:text="@string/vans_oldskool"
-                android:textColor="@color/grey"
-                android:textSize="17sp" />
-
-            <TextView
-                android:id="@+id/detail_desc"
+            <!-- add to cart -->
+            <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:layout_marginBottom="20dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginTop="10dp"
-                android:text="@string/vans_oldskool"
-                android:textSize="17sp" />
+                android:layout_height="90dp"
+                android:layout_gravity="end"
+                android:elevation="10dp"
+                app:cardElevation="20dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <!-- add to cart -->
+                    <Button
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/orange"
+                        android:gravity="center"
+                        android:id="@+id/add_to_cart"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:text="@string/add_to_cart"
+                        android:textColor="@color/white" />
+
+                </RelativeLayout>
+
+            </androidx.cardview.widget.CardView>
+
 
         </LinearLayout>
     </ScrollView>
-
-    <RelativeLayout
-        android:id="@+id/tabRL"
-        android:layout_width="match_parent"
-        android:layout_marginTop="10dp"
-        android:layout_height="60dp"
-        android:layout_alignParentBottom="true"
-        android:background="@color/grey">
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_centerVertical="true"
-            android:layout_marginStart="16dp"
-
-            android:layout_marginEnd="16dp"
-            android:background="@drawable/tablayout"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
-
-
-            <TextView
-                android:id="@+id/call"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="2"
-                android:gravity="center"
-                android:text="@string/call"
-                android:textColor="@color/white" />
-
-            <TextView
-                android:id="@+id/add_to_cart"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@drawable/tadbtn"
-                android:gravity="center"
-                android:text="@string/add_to_cart"
-                android:textColor="@color/GreyDark" />
-
-
-        </LinearLayout>
-
-
-    </RelativeLayout>
 
 </RelativeLayout>

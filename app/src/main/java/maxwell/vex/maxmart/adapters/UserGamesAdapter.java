@@ -81,6 +81,7 @@ public class UserGamesAdapter extends RecyclerView.Adapter<UserGamesAdapter.User
             public void onClick(View v) {
                 Intent intent = new Intent(gCtx, ProductDetail.class);
                 intent.putExtra("productID", productID);
+                intent.putExtra("category", category); // pass category to product details to display similar products
                 gCtx.startActivity(intent);
 
 

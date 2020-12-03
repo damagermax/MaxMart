@@ -46,7 +46,7 @@ public class CheckOut extends AppCompatActivity {
     private Button confirmOrderBtn;
 
     private int total = 0, deliveryFees = 10;
-    private TextView totalTv, subtotalTv, deliveryFeesTv;
+    private TextView totalTv, subtotalTv, deliveryFeesTv,quantityTv;
     private String subtotal;
     private List<UserCartProduct> cartList;
 
@@ -65,8 +65,8 @@ public class CheckOut extends AppCompatActivity {
         totalTv = findViewById(R.id.total_Tv);
         deliveryFeesTv = findViewById(R.id.deliveryFees_Tv);
         subtotalTv = findViewById(R.id.subTotal_Tv);
+        quantityTv= findViewById(R.id.quantity_Tv);
 
-        // [] get delivery fees from database
 
         ///
         confirmOrderBtn.setOnClickListener(new View.OnClickListener() {

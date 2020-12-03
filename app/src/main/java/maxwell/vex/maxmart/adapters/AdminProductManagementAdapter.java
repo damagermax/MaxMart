@@ -15,7 +15,7 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-import maxwell.vex.maxmart.Interface.AdminProductDelete;
+import maxwell.vex.maxmart.Interface.AdminProductManagementActions;
 import maxwell.vex.maxmart.R;
 import maxwell.vex.maxmart.models.AdminProductManagement;
 
@@ -24,12 +24,12 @@ public class AdminProductManagementAdapter extends RecyclerView.Adapter<AdminPro
 
     private Context mCtx;
     private List<AdminProductManagement> adminVideoGamesList;
-    private AdminProductDelete adminProductDelete;
+    private AdminProductManagementActions adminProductManagementActions;
 
-    public AdminProductManagementAdapter(Context mCtx, List<AdminProductManagement> adminVideoGamesList, AdminProductDelete adminProductDelete) {
+    public AdminProductManagementAdapter(Context mCtx, List<AdminProductManagement> adminVideoGamesList, AdminProductManagementActions adminProductManagementActions) {
         this.mCtx = mCtx;
         this.adminVideoGamesList = adminVideoGamesList;
-        this.adminProductDelete = adminProductDelete;
+        this.adminProductManagementActions = adminProductManagementActions;
     }
 
     @NonNull
@@ -96,7 +96,7 @@ public class AdminProductManagementAdapter extends RecyclerView.Adapter<AdminPro
             deleteProduct.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    adminProductDelete.deleteProduct(getAdapterPosition());
+                    adminProductManagementActions.deleteProduct(getAdapterPosition());
                 }
             });
         }

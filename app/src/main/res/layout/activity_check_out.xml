@@ -55,6 +55,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
+                app:cardUseCompatPadding="true"
                 android:layout_marginEnd="16dp"
                 app:cardCornerRadius="5dp"
                 app:cardElevation="2dp">
@@ -114,6 +115,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
+                app:cardUseCompatPadding="true"
                 android:layout_marginEnd="16dp"
                 app:cardCornerRadius="5dp"
                 app:cardElevation="2dp">
@@ -184,6 +186,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
+                app:cardUseCompatPadding="true"
                 app:cardCornerRadius="5dp"
                 app:cardElevation="2dp">
 
@@ -244,11 +247,7 @@
 
             </androidx.cardview.widget.CardView>
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginTop="10dp"
-                android:background="#808080" />
+
 
             <!-- subtotal -->
             <RelativeLayout
@@ -263,9 +262,7 @@
                     android:layout_height="match_parent"
                     android:layout_alignParentStart="true"
                     android:gravity="center"
-                    android:text="Subtotal"
-
-                    android:textColor="@color/grey" />
+                    android:text="Subtotal" />
 
                 <TextView
                     android:id="@+id/subTotal_Tv"
@@ -274,17 +271,38 @@
                     android:layout_alignParentEnd="true"
                     android:gravity="center"
                     android:text="GH₵ 0"
-                    android:textColor="@color/grey"
                     android:textSize="17sp" />
             </RelativeLayout>
 
-            <View
+
+
+            <!-- Quantity -->
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
+                android:layout_height="30dp"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginEnd="16dp"
-                android:background="#808080" />
+                android:layout_marginEnd="16dp">
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentStart="true"
+                    android:gravity="center"
+                    android:text="Quantity"
+                    />
+
+                <TextView
+                    android:id="@+id/quantity_Tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentEnd="true"
+                    android:gravity="center"
+                    android:text="0"
+                    android:textSize="17sp" />
+            </RelativeLayout>
+
+
 
             <!-- Delivery fees -->
             <RelativeLayout
@@ -300,8 +318,7 @@
                     android:layout_alignParentStart="true"
                     android:gravity="center"
                     android:text="Delivery fees"
-
-                    android:textColor="@color/grey" />
+                    />
 
                 <TextView
                     android:id="@+id/deliveryFees_Tv"
@@ -310,17 +327,9 @@
                     android:layout_alignParentEnd="true"
                     android:gravity="center"
                     android:text="GH₵ 0"
-                    android:textColor="@color/grey"
                     android:textSize="17sp" />
             </RelativeLayout>
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginEnd="16dp"
-                android:background="#808080" />
 
             <!-- Total -->
             <RelativeLayout
@@ -351,10 +360,6 @@
                     android:textSize="17sp" />
             </RelativeLayout>
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="#808080" />
 
             <!-- confirm oder button-->
             <Button

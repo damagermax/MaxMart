@@ -63,6 +63,7 @@ public class AllProductAdapter extends RecyclerView.Adapter<AllProductAdapter.Se
             public void onClick(View v) {
                 Intent intent = new Intent(sCtx, ProductDetail.class);
                 intent.putExtra("productID", allProducts.getProductID()); // pass productID to productDetails activity to display info
+                intent.putExtra("category", allProducts.getCategory()); // pass category to display similar products
                 sCtx.startActivity(intent);
             }
         });

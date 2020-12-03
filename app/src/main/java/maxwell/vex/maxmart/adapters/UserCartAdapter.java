@@ -16,20 +16,20 @@ import com.squareup.picasso.Picasso;
 import java.util.List;
 
 import maxwell.vex.maxmart.R;
-import maxwell.vex.maxmart.Interface.UserCartItemClick;
+import maxwell.vex.maxmart.Interface.UserCartAction;
 import maxwell.vex.maxmart.models.UserCartProduct;
 
 public class UserCartAdapter extends RecyclerView.Adapter<UserCartAdapter.UserCartViewHolder> {
 
     private List<UserCartProduct> userCartProductList;
     private Context cCtx;
-    private UserCartItemClick userCartItemClick;
+    private UserCartAction userCartAction;
     int quantity=0;
 
-    public UserCartAdapter(List<UserCartProduct> userCartProductList, Context cCtx, UserCartItemClick userCartItemClick) {
+    public UserCartAdapter(List<UserCartProduct> userCartProductList, Context cCtx, UserCartAction userCartAction) {
         this.userCartProductList = userCartProductList;
         this.cCtx = cCtx;
-        this.userCartItemClick = userCartItemClick;
+        this.userCartAction = userCartAction;
     }
 
     @NonNull
@@ -93,7 +93,7 @@ public class UserCartAdapter extends RecyclerView.Adapter<UserCartAdapter.UserCa
                 @Override
                 public void onClick(View v) {
 
-                    userCartItemClick.deleteCartItem(getAdapterPosition());
+                    userCartAction.deleteCartItem(getAdapterPosition());
                 }
             });
 
@@ -101,7 +101,7 @@ public class UserCartAdapter extends RecyclerView.Adapter<UserCartAdapter.UserCa
             addQuantity.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    userCartItemClick.increaseQuantity(getAdapterPosition());
+                    userCartAction.increaseQuantity(getAdapterPosition());
                 }
             });
 
@@ -109,7 +109,7 @@ public class UserCartAdapter extends RecyclerView.Adapter<UserCartAdapter.UserCa
             removeQuantity.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    userCartItemClick.decreaseQuantity(getAdapterPosition());
+                    userCartAction.decreaseQuantity(getAdapterPosition());
                 }
             });
 

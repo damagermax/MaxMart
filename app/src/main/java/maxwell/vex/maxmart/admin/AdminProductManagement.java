@@ -24,10 +24,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import es.dmoral.toasty.Toasty;
+import maxwell.vex.maxmart.Interface.AdminProductManagementActions;
 import maxwell.vex.maxmart.R;
 import maxwell.vex.maxmart.adapters.AdminProductManagementAdapter;
 
-public class AdminProductManagement extends AppCompatActivity  implements maxwell.vex.maxmart.Interface.AdminProductDelete {
+public class AdminProductManagement extends AppCompatActivity  implements AdminProductManagementActions {
 
     private DatabaseReference databaseReference;
 

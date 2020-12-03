@@ -32,11 +32,11 @@ import java.util.HashMap;
 import java.util.List;
 
 import es.dmoral.toasty.Toasty;
-import maxwell.vex.maxmart.Interface.UserCartItemClick;
+import maxwell.vex.maxmart.Interface.UserCartAction;
 import maxwell.vex.maxmart.adapters.UserCartAdapter;
 import maxwell.vex.maxmart.models.UserCartProduct;
 
-public class UserCart extends AppCompatActivity implements UserCartItemClick {
+public class UserCart extends AppCompatActivity implements UserCartAction {
 
     private List<UserCartProduct> cartList;
     private UserCartAdapter cartAdapter;
